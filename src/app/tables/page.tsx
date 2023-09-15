@@ -24,17 +24,8 @@ export default async function Tables(): Promise<JSX.Element> {
 }
 
 async function fetchData(): Promise<Array<DatabaseTable>> {
-    return Promise.resolve(
-        [
-            {
-                name: 'Ventas'
-            },
-            {
-                name: 'Proveedores'
-            },
-            {
-                name: 'Empleados'
-            }
-        ]
-    );
-} 
+    return fetch('http://localhost:3000/api/tables')
+        .then(async (response: Response) => {
+            return await response.json();
+        });
+}

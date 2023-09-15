@@ -1,6 +1,6 @@
 import { DashboardData } from "@/app/common/dtos/responses/DashboardData";
-import user from '../../../../public/user.png';
-import tables from '../../../../public/database.png';
+import user from '../../../public/user.png';
+import tables from '../../../public/database.png';
 import { Card } from "./Card/Card";
 
 export function Cards({ data }: {
@@ -13,13 +13,13 @@ export function Cards({ data }: {
                 imgSrc={user}
                 imgAlt='usuarios y roles'
                 amount={data.users.length}
-                href="/pages/users" />
+                href="/users" />
             <Card
                 title='Tablas'
                 imgSrc={tables}
                 imgAlt='tablas'
                 amount={data.tables.length}
-                href="/pages/tables" />
+                href="/tables" />
         </>
     );
 }

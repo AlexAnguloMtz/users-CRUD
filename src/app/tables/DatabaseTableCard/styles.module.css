@@ -25,6 +25,7 @@
 
 .name {
     color: white;
+    font-size: 22px;
 }
 
 .detail {
@@ -35,4 +36,9 @@
 
 .detailName {
     color: var(--grey-1);
+    font-size: 18px;
+}
+
+.detailValue {
+    font-size: 18px;
 }
