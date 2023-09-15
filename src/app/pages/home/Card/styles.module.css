@@ -1,0 +1,39 @@
+.card {
+    box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px 10px;
+    transition: all 250ms ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card:hover,
+.card:active {
+    background-color: rgb(29, 100, 133);
+}
+
+.card:hover .title,
+.card:active .title,
+.card:hover .text,
+.card:active .text {
+    color: white;
+}
+
+.dataWrapper {
+    display: flex;
+    gap: 16px;
+}
+
+.title {
+    color: var(--grey-1);
+    padding-bottom: 4px;
+}
+
+.text {
+    color: var(--grey-2);
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+}

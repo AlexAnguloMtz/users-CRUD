@@ -1,0 +1,15 @@
+.page {
+    padding: 16px;
+}
+
+.header {
+    color: var(--grey-1);
+    text-align: center;
+    padding: 10px 0 30px 0;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
