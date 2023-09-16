@@ -1,6 +1,8 @@
+import { DatabaseRole } from "@/app/common/dtos/responses/DatabaseRole";
 import { Client, QueryResult } from "pg";
 
 export class DatabaseRolesRepository {
+
     constructor(readonly createDatabaseClient: () => Client) { }
 
     async count(): Promise<number> {
@@ -24,6 +26,28 @@ export class DatabaseRolesRepository {
             await client.end();
         }
         throw new Error('Could not count tables');
+    }
+
+    async findAll(): Promise<Array<DatabaseRole>> {
+
+        const query: string = `
+            SELECT rolname FROM pg_roles
+            WHERE rolname NOT LIKE 'pg_%'
+        `;
+
+        const models: Array<DatabaseRole> = [];
+        const client: Client = this.createDatabaseClient();
+        try {
+            await client.connect();
+            const result: QueryResult = await client.query(query);
+            result.rows.forEach((row) => models.push({ name: row.rolname }));
+            return models;
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await client.end();
+        }
+        throw new Error('Could not query roles');
     }
 
 }

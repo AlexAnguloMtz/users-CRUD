@@ -50,6 +50,8 @@ function Cards({ data }: {
 }): JSX.Element {
     return (
         <>
+            <h1 className={styles.header}>Usuarios</h1>
+            <p className={styles.instructions}>Seleccione un usuario para ver y editar su información</p>
             {
                 data.map((model: DatabaseRole) =>
                     <DatabaseRoleCard model={model} />)

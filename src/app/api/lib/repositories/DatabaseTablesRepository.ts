@@ -6,19 +6,11 @@ export class DatabaseTablesRepository {
     constructor(readonly createDatabaseClient: () => Client) { }
 
     async findAll(): Promise<Array<DatabaseTable>> {
-        const query: string = `
-            SELECT table_name
-            FROM information_schema.tables
-            WHERE table_schema='public'
-            AND table_type='BASE TABLE'
-            ORDER BY table_name ASC
-        `;
-
         let models: Array<DatabaseTable> = [];
         const client: Client = this.createDatabaseClient();
         try {
             await client.connect();
-            const result: QueryResult = await client.query(query);
+            const result: QueryResult = await client.query(this.publicTablesQuery());
             result.rows.forEach((row) => models.push({ name: row.table_name }));
         } catch (e) {
             console.log(e);
@@ -31,12 +23,7 @@ export class DatabaseTablesRepository {
     async count(): Promise<number> {
         const query: string = `
             SELECT COUNT(*)
-            FROM (
-                SELECT table_name
-                FROM information_schema.tables
-                WHERE table_schema='public'
-                AND table_type='BASE TABLE'
-            ) AS public_tables;
+            FROM (${this.publicTablesQuery()}) AS public_tables;
         `;
 
         const client: Client = this.createDatabaseClient();
@@ -54,7 +41,10 @@ export class DatabaseTablesRepository {
 
     publicTablesQuery(): string {
         return `
-            
+            SELECT table_name
+            FROM information_schema.tables
+            WHERE table_schema='public'
+            AND table_type='BASE TABLE'
         `;
     }
 
