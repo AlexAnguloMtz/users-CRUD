@@ -36,6 +36,4 @@ export function Card({
     );
 }
 
-function amountUnit(amount: number): string {
-    return `elemento${amount === 1 ? '' : 's'}`;
-}
+const amountUnit = (amount: number): string => `elemento${amount > 1 ? 's' : ''}`;

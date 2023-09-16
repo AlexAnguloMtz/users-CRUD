@@ -1,0 +1,6 @@
+.loadingIndicator {
+    height: calc(100vh - var(--navHeight));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

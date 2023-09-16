@@ -12,13 +12,13 @@ export function Cards({ data }: {
                 title='Usuarios y Roles'
                 imgSrc={user}
                 imgAlt='usuarios y roles'
-                amount={data.users.length}
-                href="/users" />
+                amount={data.usersCount}
+                href="/roles" />
             <Card
                 title='Tablas'
                 imgSrc={tables}
                 imgAlt='tablas'
-                amount={data.tables.length}
+                amount={data.tablesCount}
                 href="/tables" />
         </>
     );
