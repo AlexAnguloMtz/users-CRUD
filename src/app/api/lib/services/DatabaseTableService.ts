@@ -3,7 +3,6 @@ import { DatabaseTablesRepository } from "../repositories/DatabaseTablesReposito
 
 export class DatabaseTablesService {
 
-
     constructor(readonly repository: DatabaseTablesRepository) { }
 
     async findAll(): Promise<Array<DatabaseTable>> {

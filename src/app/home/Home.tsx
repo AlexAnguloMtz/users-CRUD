@@ -7,7 +7,6 @@ import { Cards } from './Cards';
 import { fetchDashboardData } from './lib/data-fetching';
 import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
-import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 
 type Result = undefined | Error | DashboardData
 
@@ -18,24 +17,16 @@ export default function Home(): JSX.Element {
     useEffect(() => {
         if (result === undefined) {
             fetchDashboardData()
-                .then(handleData)
-                .catch(handleError);
+                .then((data: DashboardData) => setResult(() => data))
+                .catch((error: Error) => setResult(() => error));
         }
-    }, [result]);
-
-    function handleData(data: DashboardData): void {
-        setResult(() => data);
-    }
-
-    function handleError(error: Error): void {
-        setResult(() => error);
-    }
+    }, []);
 
     return (
         <div>
             <Nav />
             <main className={styles.page}>
-                {<Body result={result} />}
+                <Body result={result} />
             </main>
         </div>
     );
@@ -48,7 +39,7 @@ function Body({ result }: {
         return <LoadingIndicator />
     }
     if (result instanceof Error) {
-        return <ErrorScreen error={result} />
+        return <>{result.stack}</>
     }
     return <Cards data={result} />;
 }

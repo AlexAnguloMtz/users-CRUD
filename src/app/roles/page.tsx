@@ -1,22 +1,59 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { Nav } from '../client/components/Nav/Nav';
 import { DatabaseRole } from '../common/dtos/responses/DatabaseRole';
-import { DatabaseRoleCard } from './DatabaseRoleCard/DatabaseRoleCard';
-import { fetchData } from './data-fetching';
 import styles from './styles.module.css';
+import { fetchData } from './lib/data-fetching';
+import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
+import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
+import { DatabaseRoleCard } from './DatabaseRoleCard/DatabaseRoleCard';
 
-export default async function Roles(): Promise<JSX.Element> {
+type Result = undefined | Error | Array<DatabaseRole>
 
-    const models: Array<DatabaseRole> = await fetchData();
+export default function Roles(): JSX.Element {
+
+    const [result, setResult] = useState<Result>(undefined);
+
+    useEffect(() => {
+        if (result === undefined) {
+            fetchData()
+                .then(setResult)
+                .catch(setResult)
+        }
+    }, [result]);
 
     return (
         <div>
             <Nav />
             <main className={styles.body}>
-                {
-                    models.map((model: DatabaseRole) =>
-                        <DatabaseRoleCard model={model} />)
-                }
+                <Body result={result} />
             </main>
         </div>
+    );
+}
+
+function Body({ result }: {
+    result: Result
+}): JSX.Element {
+    if (result === undefined) {
+        return <LoadingIndicator />
+    }
+    if (result instanceof Error) {
+        return <ErrorScreen error={result} />
+    }
+    return <Cards data={result} />
+}
+
+function Cards({ data }: {
+    data: Array<DatabaseRole>
+}): JSX.Element {
+    return (
+        <>
+            {
+                data.map((model: DatabaseRole) =>
+                    <DatabaseRoleCard model={model} />)
+            }
+        </>
     );
 }

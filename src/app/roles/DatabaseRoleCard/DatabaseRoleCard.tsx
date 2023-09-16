@@ -1,3 +1,5 @@
+'use client';
+
 import { DatabaseRole } from '@/app/common/dtos/responses/DatabaseRole';
 import styles from './styles.module.css';
 
@@ -6,7 +8,7 @@ export function DatabaseRoleCard({ model }: {
 }): JSX.Element {
     return (
         <article className={styles.card}>
-
+            {model.name}
         </article>
     );
 }

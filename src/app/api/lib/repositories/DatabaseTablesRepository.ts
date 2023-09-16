@@ -19,7 +19,7 @@ export class DatabaseTablesRepository {
         try {
             await client.connect();
             const result: QueryResult = await client.query(query);
-            result.rows.forEach((row) => models.push({ name: row.table_name, count: 0 }));
+            result.rows.forEach((row) => models.push({ name: row.table_name }));
         } catch (e) {
             console.log(e);
         } finally {

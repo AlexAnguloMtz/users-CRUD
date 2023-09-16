@@ -18,18 +18,10 @@ export default function Tables(): JSX.Element {
     useEffect(() => {
         if (result === undefined) {
             fetchTables()
-                .then(handleSuccess)
-                .catch(handleError);
+                .then((data: Array<DatabaseTable>) => setResult(() => data))
+                .catch((error: Error) => setResult(() => error));
         }
     }, []);
-
-    function handleSuccess(tables: Array<DatabaseTable>): void {
-        setResult(() => tables);
-    }
-
-    function handleError(error: Error): void {
-        setResult(() => error);
-    }
 
     return (
         <div>
