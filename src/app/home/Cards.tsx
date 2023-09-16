@@ -12,7 +12,7 @@ export function Cards({ data }: {
                 title='Usuarios y Roles'
                 imgSrc={user}
                 imgAlt='usuarios y roles'
-                amount={data.usersCount}
+                amount={data.rolesCount}
                 href="/roles" />
             <Card
                 title='Tablas'

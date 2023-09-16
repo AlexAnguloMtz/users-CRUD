@@ -1,0 +1,18 @@
+.errorScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    gap: 20px;
+}
+
+.errorScreenTitle {
+    color: var(--grey-1);
+}
+
+.errorScreen p {
+    text-align: center;
+    line-height: 1.6;
+    color: var(--grey-2);
+}

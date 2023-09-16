@@ -1,15 +1,13 @@
 'use client';
 
-import error from '../../../public/error.png';
 import styles from './styles.module.css';
 import { DashboardData } from '@/app/common/dtos/responses/DashboardData';
 import { Nav } from '@/app/client/components/Nav/Nav';
 import { Cards } from './Cards';
-import { fetchTablesCount, fetchUsersCount } from './lib/data-fetching';
+import { fetchDashboardData } from './lib/data-fetching';
 import { useEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
-import Image from 'next/image';
+import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 
 export default function Home(): JSX.Element {
 
@@ -17,7 +15,7 @@ export default function Home(): JSX.Element {
 
     useEffect(() => {
         if (result === undefined) {
-            fetchData()
+            fetchDashboardData()
                 .then(handleData)
                 .catch(handleError);
         }
@@ -36,7 +34,7 @@ export default function Home(): JSX.Element {
             return <LoadingIndicator />
         }
         if (result instanceof Error) {
-            return <ErrorScreen />
+            return <ErrorScreen error={result} />
         }
         return <Cards data={result} />;
     }
@@ -45,28 +43,11 @@ export default function Home(): JSX.Element {
         <div>
             <Nav />
             <main className={styles.page}>
-                {
-                    body()
-                }
+                {body()}
             </main>
         </div>
     );
 }
 
-async function fetchData(): Promise<DashboardData> {
-    throw new Error();
-    return {
-        usersCount: await fetchUsersCount(),
-        tablesCount: await fetchTablesCount(),
-    }
-}
 
-function ErrorScreen(): JSX.Element {
-    return (
-        <div className={styles.errorScreen}>
-            <h1 className={styles.errorScreenTitle}>Ocurrió un error</h1>
-            <Image src={error} alt='error inesperado' />
-            <p>No se pudo cargar los datos, intente de nuevo más tarde</p>
-        </div>
-    );
-}
+

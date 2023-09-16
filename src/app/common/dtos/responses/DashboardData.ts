@@ -1,4 +1,4 @@
 export type DashboardData = {
-    usersCount: number,
+    rolesCount: number,
     tablesCount: number
 }
