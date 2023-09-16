@@ -9,9 +9,11 @@ import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingI
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { fetchTables } from './lib/fetchTables';
 
+type Result = undefined | Error | Array<DatabaseTable>
+
 export default function Tables(): JSX.Element {
 
-    const [result, setResult] = useState<undefined | Array<DatabaseTable> | Error>(undefined);
+    const [result, setResult] = useState<Result>(undefined);
 
     useEffect(() => {
         if (result === undefined) {
@@ -40,7 +42,7 @@ export default function Tables(): JSX.Element {
 }
 
 function Body({ result }: {
-    result: undefined | Error | Array<DatabaseTable>
+    result: Result
 }): JSX.Element {
     if (result === undefined) {
         return <LoadingIndicator />
