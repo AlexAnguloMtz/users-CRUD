@@ -6,50 +6,61 @@ import { DatabaseTable } from '@/app/common/dtos/responses/DatabaseTable';
 import { DatabaseTableCard } from './DatabaseTableCard/DatabaseTableCard';
 import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
+import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
+import { fetchTables } from './lib/fetchTables';
 
 export default function Tables(): JSX.Element {
 
-    const [isShowingError, setShowingError] = useState<boolean>(false);
-
-    const [tables, setTables] = useState<Array<DatabaseTable> | undefined>(undefined);
+    const [result, setResult] = useState<undefined | Array<DatabaseTable> | Error>(undefined);
 
     useEffect(() => {
-        if (tables === undefined) {
-            fetchData()
+        if (result === undefined) {
+            fetchTables()
                 .then(handleSuccess)
                 .catch(handleError);
         }
     }, []);
 
     function handleSuccess(tables: Array<DatabaseTable>): void {
-        setTables(() => tables);
+        setResult(() => tables);
     }
 
     function handleError(error: Error): void {
-        setShowingError(() => true);
+        setResult(() => error);
     }
 
     return (
         <div>
             <Nav />
             <main className={styles.page}>
-                <h1 className={styles.header}>Tablas</h1>
-                <div className={styles.cards}>
-                    {
-                        (tables === undefined)
-                            ? <LoadingIndicator />
-                            : tables!.map((table: DatabaseTable) =>
-                                <DatabaseTableCard table={table} />)
-                    }
-                </div>
+                <Body result={result} />
             </main>
         </div>
     );
 }
 
-async function fetchData(): Promise<Array<DatabaseTable>> {
-    return fetch('http://localhost:3000/api/tables', { cache: 'no-store' })
-        .then(async (response: Response) => {
-            return await response.json();
-        });
+function Body({ result }: {
+    result: undefined | Error | Array<DatabaseTable>
+}): JSX.Element {
+    if (result === undefined) {
+        return <LoadingIndicator />
+    }
+    if (result instanceof Error) {
+        return <ErrorScreen error={result} />
+    }
+    return <Cards tables={result} />
+}
+
+function Cards({ tables }: {
+    tables: Array<DatabaseTable>,
+}): JSX.Element {
+    return (
+        <>
+            <h1 className={styles.header}>Tablas</h1>
+            <div className={styles.cards}>
+                {tables.map((table: DatabaseTable) =>
+                    <DatabaseTableCard table={table} />)}
+            </div>
+        </>
+    );
 }
