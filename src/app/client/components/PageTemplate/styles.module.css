@@ -8,6 +8,7 @@
     width: 100%;
     overflow: scroll;
     overflow-x: hidden;
+    position: relative;
 }
 
 @media screen and (min-width: 950px) {

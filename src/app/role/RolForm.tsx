@@ -17,20 +17,23 @@ export function RolForm({
     onSubmit: () => void,
 }): JSX.Element {
     return (
-        <form className={styles.page}>
-            <h1 className={styles.title}>Usuario</h1>
-            <Rolname name={role.name} />
-            <BasicPrivileges
-                canCreateRoles={role.canCreateRole}
-                canCreateDatabases={role.canCreateDatabase}
-                canLogin={role.canLogin}
-                onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
-                onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
-                onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
+        <>
+            <form className={styles.page}>
+                <h1 className={styles.title}>Usuario</h1>
+                <Rolname name={role.name} />
+                <BasicPrivileges
+                    canCreateRoles={role.canCreateRole}
+                    canCreateDatabases={role.canCreateDatabase}
+                    canLogin={role.canLogin}
+                    onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
+                    onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
+                    onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
+
+            </form>
             <SubmitButton
                 onClick={onSubmit}
                 enabled={submitButtonEnabled} />
-        </form>
+        </>
     );
 }
 
