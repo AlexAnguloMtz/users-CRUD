@@ -7,6 +7,7 @@ import { LoadingIndicator } from "../client/components/LoadingIndicator/LoadingI
 import { ErrorScreen } from "../client/components/ErrorScreen/ErrorScreen";
 import { fetchRole, updateRole } from "./lib/data-fetching";
 import { RolForm } from './RolForm';
+import { SuccessDialog } from "./SuccessDialog";
 
 type SearchParams = {
     name: string
@@ -24,31 +25,41 @@ export default function RolePage({ searchParams }: {
 
     const [isUpdating, setUpdating] = useState<boolean>(false);
 
+    const [isSuccessDialogOpen, setSuccessDialogOpen] = useState<boolean>(false);
+
     useEffect(() => {
         if (isLoadingInitialData) {
             fetchRole(searchParams.name)
-                .then(handleResult)
-                .catch(handleResult)
+                .then(handleInitialFetchResult)
+                .catch(handleInitialFetchResult)
         }
     }, []);
 
     useEffect(() => {
         if (isUpdating) {
             updateRole(result as DatabaseRole)
-                .then(handleResult)
-                .catch(handleResult)
+                .then(handleUpdatingResult)
+                .catch(handleUpdatingResult)
         }
     }, [isUpdating]);
 
-    function handleResult(result: Result): void {
+    function handleInitialFetchResult(result: Result): void {
         setLoadingInitialData(false);
+        setResult(result);
+    }
+
+    function handleUpdatingResult(result: Result): void {
         setUpdating(false);
         setResult(result);
+        setSuccessDialogOpen(true);
     }
 
     return (
         <div>
             <Nav />
+            <SuccessDialog
+                open={isSuccessDialogOpen}
+                onDisclose={() => setSuccessDialogOpen(false)} />
             <Body
                 isLoading={isLoadingInitialData || isUpdating}
                 result={result}

@@ -46,17 +46,14 @@
     font-weight: 600;
 }
 
-.dialogMessage {
-    color: black;
-    font-weight: 500;
-    padding: 24px;
+.dialogImage {
+    margin: 0 auto 24px auto;
 }
 
-.dialogActions {
+.dialogContent {
     display: flex;
-    justify-content: flex-end;
-    padding: 16px;
-    gap: 6px;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .dialogAction {
@@ -70,17 +67,12 @@
     background-color: black;
     color: white;
     border-color: transparent;
+    width: 100px;
+    margin: 0 auto;
 }
 
-.dialogSecondaryAction {
-    composes: dialogAction;
-    background-color: transparent;
-    border: 1px solid black;
-}
-
-.emphasis {
-    font-style: normal;
-    font-weight: 800;
+.dialogDiscloseButtonContainer {
+    text-align: center;
 }
 
 .submitButtonContainer {
