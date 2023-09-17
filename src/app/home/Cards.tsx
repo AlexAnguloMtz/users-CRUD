@@ -10,7 +10,7 @@ export function Cards({ data }: {
     return (
         <div className={styles.cards}>
             <Card
-                title='Usuarios y Roles'
+                title='Usuarios'
                 imgSrc={user}
                 imgAlt='usuarios y roles'
                 amount={data.rolesCount}

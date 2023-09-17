@@ -20,4 +20,3 @@ export function Nav(): JSX.Element {
         </nav>
     );
 }
-

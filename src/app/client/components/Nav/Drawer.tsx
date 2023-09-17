@@ -1,4 +1,5 @@
 import { CloseButton } from './CloseButton/CloseButton';
+import { DrawerLinks } from './DrawerLinks/DrawerLinks';
 import styles from './styles.module.css';
 
 export function Drawer({
@@ -16,6 +17,7 @@ export function Drawer({
                 className={open ? styles.drawerActive : styles.drawer}
                 onClick={(e) => e.stopPropagation()}>
                 <CloseButton onClick={onClose} />
+                <DrawerLinks />
             </div>
         </div>
     );

@@ -1,4 +1,3 @@
-import { BasicPrivilege, privilegeToString } from './BasicPrivilege';
 import { CheckboxInput } from './CheckboxInput';
 import styles from './styles.module.css';
 
@@ -22,15 +21,15 @@ export function BasicPrivileges({
             <h3 className={styles.header}>Privilegios Básicos</h3>
             <div>
                 <CheckboxInput
-                    labelText={privilegeToString(BasicPrivilege.CREATE_ROLE)}
+                    labelText={'Crear usuarios'}
                     onClick={onCanCreateRoles}
                     isChecked={canCreateRoles} />
                 <CheckboxInput
-                    labelText={privilegeToString(BasicPrivilege.CREATE_DATABASE)}
+                    labelText={'Crear bases de datos'}
                     onClick={onCanCreateDatabase}
                     isChecked={canCreateDatabases} />
                 <CheckboxInput
-                    labelText={privilegeToString(BasicPrivilege.LOGIN)}
+                    labelText={'Hacer login'}
                     onClick={onCanLogin}
                     isChecked={canLogin} />
             </div>
