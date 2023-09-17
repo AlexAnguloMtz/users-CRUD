@@ -15,7 +15,7 @@ export function Drawer({
             <div
                 className={open ? styles.drawerActive : styles.drawer}
                 onClick={(e) => e.stopPropagation()}>
-                <CloseButton />
+                <CloseButton onClick={onClose} />
             </div>
         </div>
     );

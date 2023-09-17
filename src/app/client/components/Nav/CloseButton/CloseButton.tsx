@@ -1,11 +1,14 @@
 import styles from './styles.module.css';
 
-export function CloseButton(): JSX.Element {
+export function CloseButton({ onClick }: {
+    onClick: () => void
+}): JSX.Element {
     return (
         <div className={styles.closeButtonContainer}>
-            <button className={styles.closeButton}>
-                <div className={styles.firstLine}></div>
-                <div className={styles.secondLine}></div>
+            <button
+                className={styles.closeButton}
+                onClick={onClick}>
+                Cerrar
             </button>
         </div>
     );

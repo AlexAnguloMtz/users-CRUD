@@ -1,35 +1,17 @@
 .closeButtonContainer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 4px;
+    padding: 0 8px;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
 }
 
 .closeButton {
-    position: relative;
     background-color: transparent;
-    width: 35px;
-    height: 35px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.buttonLine {
-    width: 60%;
-    height: 2px;
-    background-color: black;
-    border-radius: 6px;
-    position: absolute;
-}
-
-.firstLine {
-    composes: buttonLine;
-    transform: rotateZ(45deg);
-}
-
-.secondLine {
-    composes: buttonLine;
-    transform: rotateZ(-45deg);
+    border: 2px rgb(18, 107, 143) solid;
+    font-size: 18px;
+    width: 100%;
+    padding: 8px 0;
+    color: rgb(18, 107, 143);
+    border-radius: 4px;
 }
