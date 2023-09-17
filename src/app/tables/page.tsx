@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { fetchTables } from './lib/fetchTables';
+import { PageTemplate } from '../client/components/PageTemplate/PageTemplate';
 
 type Result = undefined | Error | Array<DatabaseTable>
 
@@ -24,12 +25,11 @@ export default function Tables(): JSX.Element {
     }, []);
 
     return (
-        <div>
-            <Nav />
+        <PageTemplate>
             <main className={styles.page}>
                 <Body result={result} />
             </main>
-        </div>
+        </PageTemplate>
     );
 }
 

@@ -8,6 +8,7 @@ import { ErrorScreen } from "../client/components/ErrorScreen/ErrorScreen";
 import { fetchRole, updateRole } from "./lib/data-fetching";
 import { RolForm } from './RolForm';
 import { SuccessDialog } from "./SuccessDialog";
+import { PageTemplate } from "../client/components/PageTemplate/PageTemplate";
 
 type SearchParams = {
     name: string
@@ -55,17 +56,18 @@ export default function RolePage({ searchParams }: {
     }
 
     return (
-        <div>
-            <Nav />
-            <SuccessDialog
-                open={isSuccessDialogOpen}
-                onDisclose={() => setSuccessDialogOpen(false)} />
-            <Body
-                isLoading={isLoadingInitialData || isUpdating}
-                result={result}
-                roleConsumer={setResult}
-                onSubmit={() => setUpdating(true)} />
-        </div>
+        <PageTemplate>
+            <>
+                <SuccessDialog
+                    open={isSuccessDialogOpen}
+                    onDisclose={() => setSuccessDialogOpen(false)} />
+                <Body
+                    isLoading={isLoadingInitialData || isUpdating}
+                    result={result}
+                    roleConsumer={setResult}
+                    onSubmit={() => setUpdating(true)} />
+            </>
+        </PageTemplate>
     );
 }
 

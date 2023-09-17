@@ -7,6 +7,7 @@ import { Cards } from './Cards';
 import { fetchDashboardData } from './lib/data-fetching';
 import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
+import { PageTemplate } from '../client/components/PageTemplate/PageTemplate';
 
 type Result = undefined | Error | DashboardData
 
@@ -23,12 +24,11 @@ export default function Home(): JSX.Element {
     }, []);
 
     return (
-        <div>
-            <Nav />
+        <PageTemplate>
             <main className={styles.page}>
                 <Body result={result} />
             </main>
-        </div>
+        </PageTemplate>
     );
 }
 
