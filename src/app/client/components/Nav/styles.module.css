@@ -17,7 +17,7 @@
 }
 
 .drawer {
-    width: min(70vw, 400px);
+    width: min(70vw, 300px);
     background-color: white;
     position: fixed;
     left: 0;

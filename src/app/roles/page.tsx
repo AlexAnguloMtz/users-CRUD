@@ -8,6 +8,7 @@ import { fetchData } from './lib/data-fetching';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { PageBody } from './Cards';
+import { PageTemplate } from '../client/components/PageTemplate/PageTemplate';
 
 type Result = undefined | Error | Array<DatabaseRole>
 
@@ -24,12 +25,11 @@ export default function Roles(): JSX.Element {
     }, [result]);
 
     return (
-        <div>
-            <Nav />
+        <PageTemplate>
             <main className={styles.body}>
                 <Body result={result} />
             </main>
-        </div>
+        </PageTemplate>
     );
 }
 

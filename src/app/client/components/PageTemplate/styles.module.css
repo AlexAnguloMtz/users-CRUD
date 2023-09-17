@@ -1,0 +1,17 @@
+.content {
+    display: flex;
+    justify-content: flex-end;
+    height: calc(100vh - var(--navHeight));
+}
+
+.body {
+    width: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+@media screen and (min-width: 700px) {
+    .body {
+        width: calc(100vw - 200px);
+    }
+}

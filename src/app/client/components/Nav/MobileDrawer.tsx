@@ -2,7 +2,7 @@ import { CloseButton } from './CloseButton/CloseButton';
 import { DrawerLinks } from './DrawerLinks/DrawerLinks';
 import styles from './styles.module.css';
 
-export function Drawer({
+export function MobileDrawer({
     open,
     onClose
 }: {
