@@ -14,5 +14,6 @@
 @media screen and (min-width: 950px) {
     .body {
         width: calc(100vw - var(--desktopDrawerWidth));
+        padding: 0 30px;
     }
 }
