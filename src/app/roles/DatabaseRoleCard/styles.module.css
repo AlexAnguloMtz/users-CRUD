@@ -50,3 +50,9 @@
     top: 0px;
     font-size: 14px;
 }
+
+@media screen and (min-width: 800px) {
+    .card {
+        width: 45%;
+    }
+}

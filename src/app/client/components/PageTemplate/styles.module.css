@@ -10,7 +10,7 @@
     overflow-x: hidden;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 950px) {
     .body {
         width: calc(100vw - var(--desktopDrawerWidth));
     }
