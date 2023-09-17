@@ -18,9 +18,9 @@ export function BasicPrivileges({
     canLogin: boolean,
 }): JSX.Element {
     return (
-        <>
+        <div className={styles.basicPrivileges}>
             <h3 className={styles.header}>Privilegios Básicos</h3>
-            <div className={styles.basicPrivileges}>
+            <div>
                 <CheckboxInput
                     labelText={privilegeToString(BasicPrivilege.CREATE_ROLE)}
                     onClick={onCanCreateRoles}
@@ -34,6 +34,6 @@ export function BasicPrivileges({
                     onClick={onCanLogin}
                     isChecked={canLogin} />
             </div>
-        </>
+        </div>
     );
 }

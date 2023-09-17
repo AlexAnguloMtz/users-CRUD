@@ -1,3 +1,4 @@
+import styles from './styles.module.css';
 import { DashboardData } from "@/app/common/dtos/responses/DashboardData";
 import user from '../../../public/user.png';
 import tables from '../../../public/database.png';
@@ -7,7 +8,7 @@ export function Cards({ data }: {
     data: DashboardData
 }): JSX.Element {
     return (
-        <>
+        <div className={styles.cards}>
             <Card
                 title='Usuarios y Roles'
                 imgSrc={user}
@@ -20,6 +21,6 @@ export function Cards({ data }: {
                 imgAlt='tablas'
                 amount={data.tablesCount}
                 href="/tables" />
-        </>
+        </div>
     );
 }

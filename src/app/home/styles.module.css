@@ -3,4 +3,22 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    min-height: 500px;
+    height: calc(100vh - var(--navHeight));
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media screen and (min-width: 700px) {
+    .cards {
+        flex-direction: row;
+    }
+
+    .page {
+        justify-content: center;
+    }
 }
