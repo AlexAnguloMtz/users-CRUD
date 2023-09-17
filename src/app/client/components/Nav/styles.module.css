@@ -8,4 +8,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 17px;
+}
+
+.drawer {
+    width: 70vw;
+    background-color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transition: transform 300ms ease;
+    transform: translateX(-100%);
+    z-index: 100;
+}
+
+.drawerActive {
+    composes: drawer;
+    transform: translateX(0%);
+}
+
+.overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transition: background-color 300ms ease;
+    z-index: 100;
+}
+
+.overlayActive {
+    composes: overlay;
+    right: 0;
 }

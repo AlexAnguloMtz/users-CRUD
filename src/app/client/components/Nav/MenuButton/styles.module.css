@@ -1,0 +1,32 @@
+.menuButton {
+    background-color: transparent;
+    border: none;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    left: 10px;
+}
+
+.buttonLine {
+    width: 60%;
+    height: 3px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.firstLine {
+    composes: buttonLine;
+}
+
+.secondLine {
+    composes: buttonLine;
+}
+
+.thirdLine {
+    composes: buttonLine;
+}
