@@ -1,0 +1,117 @@
+.page {
+    padding: 16px;
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.title {
+    color: var(--grey-1);
+    margin-bottom: 12px;
+    position: relative;
+    right: 2px;
+}
+
+.listElement {
+    list-style: none;
+}
+
+.roleName {
+    font-size: 20px;
+    position: relative;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.checkboxWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.basicPrivileges {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 0;
+}
+
+.header {
+    color: var(--grey-1);
+}
+
+.dialogTitle {
+    color: black;
+    font-weight: 600;
+}
+
+.dialogMessage {
+    color: black;
+    font-weight: 500;
+    padding: 24px;
+}
+
+.dialogActions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+    gap: 6px;
+}
+
+.dialogAction {
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dialogPrimaryAction {
+    composes: dialogAction;
+    background-color: black;
+    color: white;
+    border-color: transparent;
+}
+
+.dialogSecondaryAction {
+    composes: dialogAction;
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+.emphasis {
+    font-style: normal;
+    font-weight: 800;
+}
+
+.submitButtonContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.submitButton {
+    background-color: rgb(18, 107, 143);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 250ms ease;
+}
+
+.submitButton:hover,
+.submitButton:active {
+    background-color: rgb(8, 68, 92);
+}
+
+.submitButtonDisabled {
+    composes: submitButton;
+    background-color: gray;
+    pointer-events: none;
+}

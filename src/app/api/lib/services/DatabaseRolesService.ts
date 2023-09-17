@@ -12,4 +12,13 @@ export class DatabaseRolesService {
     async count(): Promise<number> {
         return await this.repository.count();
     }
+
+    async findByName(name: string): Promise<DatabaseRole> {
+        return this.repository.findByName(name);
+    }
+
+    async update(name: string, model: DatabaseRole): Promise<DatabaseRole> {
+        return this.repository.update(name, model);
+    }
+
 }

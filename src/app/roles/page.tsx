@@ -7,7 +7,7 @@ import styles from './styles.module.css';
 import { fetchData } from './lib/data-fetching';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
-import { DatabaseRoleCard } from './DatabaseRoleCard/DatabaseRoleCard';
+import { PageBody } from './Cards';
 
 type Result = undefined | Error | Array<DatabaseRole>
 
@@ -42,20 +42,7 @@ function Body({ result }: {
     if (result instanceof Error) {
         return <ErrorScreen error={result} />
     }
-    return <Cards data={result} />
+    return <PageBody data={result} />
 }
 
-function Cards({ data }: {
-    data: Array<DatabaseRole>
-}): JSX.Element {
-    return (
-        <>
-            <h1 className={styles.header}>Usuarios</h1>
-            <p className={styles.instructions}>Seleccione un usuario para ver y editar su información</p>
-            {
-                data.map((model: DatabaseRole) =>
-                    <DatabaseRoleCard model={model} />)
-            }
-        </>
-    );
-}
+

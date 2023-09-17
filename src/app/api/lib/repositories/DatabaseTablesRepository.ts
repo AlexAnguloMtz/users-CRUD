@@ -39,7 +39,7 @@ export class DatabaseTablesRepository {
         throw new Error('Could not count tables');
     }
 
-    publicTablesQuery(): string {
+    private publicTablesQuery(): string {
         return `
             SELECT table_name
             FROM information_schema.tables
