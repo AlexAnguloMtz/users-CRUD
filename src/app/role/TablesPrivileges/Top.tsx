@@ -13,7 +13,7 @@ export function Top({ headerText }: {
             expandIcon={<ExpandMoreIcon />}>
             <div className={styles.topContent}>
                 <Icon />
-                <h4>{headerText}</h4>
+                <h4 className={styles.header}>{headerText}</h4>
             </div>
         </AccordionSummary>
     );
