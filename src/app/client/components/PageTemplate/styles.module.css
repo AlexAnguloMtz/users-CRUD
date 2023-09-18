@@ -2,6 +2,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .content {
@@ -17,8 +18,11 @@
 }
 
 .body {
+    height: calc(100vh - var(--navHeight));
     flex: 1;
     position: relative;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 @media screen and (min-width: 950px) {
