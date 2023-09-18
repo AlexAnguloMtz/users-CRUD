@@ -23,15 +23,15 @@ export function BasicPrivileges({
             className={styles.basicPrivileges}>
             <div>
                 <CheckboxInput
-                    labelText={'Crear usuarios'}
+                    labelText={'CREATEROLE'}
                     onClick={onCanCreateRoles}
                     isChecked={canCreateRoles} />
                 <CheckboxInput
-                    labelText={'Crear bases de datos'}
+                    labelText={'CREATEDB'}
                     onClick={onCanCreateDatabase}
                     isChecked={canCreateDatabases} />
                 <CheckboxInput
-                    labelText={'Hacer login'}
+                    labelText={'LOGIN'}
                     onClick={onCanLogin}
                     isChecked={canLogin} />
             </div>

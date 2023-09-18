@@ -1,1 +1,15 @@
-.container {}
+.body {
+    padding: 20px 0;
+}
+
+.inputs {}
+
+.top {
+    background: linear-gradient(45deg, rgb(33, 107, 141), rgb(56, 150, 194));
+    color: white;
+    border-radius: 6px;
+}
+
+.instructions {
+    line-height: 1.6;
+}

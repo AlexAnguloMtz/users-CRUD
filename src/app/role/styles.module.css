@@ -1,8 +1,17 @@
 .page {
-    padding: 16px;
     position: relative;
     max-width: 400px;
     margin: 0 auto;
+}
+
+.top {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 16px 16px 8px 16px;
+    margin-bottom: 20px;
+    z-index: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .title {
@@ -19,7 +28,6 @@
 .roleName {
     font-size: 20px;
     position: relative;
-    margin-bottom: 30px;
     font-weight: 600;
 }
 
@@ -34,7 +42,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 16px 0;
 }
 
 .dialogTitle {
@@ -112,4 +119,8 @@
 
 .basicPrivileges {
     margin-bottom: 30px;
+}
+
+.checkboxLabel {
+    font-weight: 500;
 }

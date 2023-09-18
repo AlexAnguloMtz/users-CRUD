@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 import { DatabaseRole } from "../common/dtos/responses/DatabaseRole";
 import { Rolname } from './Rolname';
 import { BasicPrivileges } from './BasicPrivileges';
-import { TablesPrivileges } from './TablesPrivileges/TablesPrivileges.';
+import TablesPrivileges from './TablesPrivileges';
 
 export function RolForm({
     role,
@@ -20,8 +20,10 @@ export function RolForm({
     return (
         <>
             <form className={styles.page}>
-                <h1 className={styles.title}>Usuario</h1>
-                <Rolname name={role.name} />
+                <div className={styles.top}>
+                    <h1 className={styles.title}>Usuario</h1>
+                    <Rolname name={role.name} />
+                </div>
                 <BasicPrivileges
                     canCreateRoles={role.canCreateRole}
                     canCreateDatabases={role.canCreateDatabase}
@@ -29,11 +31,14 @@ export function RolForm({
                     onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
                     onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
                     onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
-                <TablesPrivileges />
+                <TablesPrivileges
+                    tables={[
+                        'Productos'
+                    ]} />
             </form>
-            <SubmitButton
+            {/*<SubmitButton
                 onClick={onSubmit}
-                enabled={submitButtonEnabled} />
+    enabled={submitButtonEnabled} />*/}
         </>
     );
 }

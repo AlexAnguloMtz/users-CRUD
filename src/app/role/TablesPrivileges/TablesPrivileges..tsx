@@ -2,52 +2,22 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import styles from './styles.module.css';
 import { ExpandMoreIcon } from '../ExpandMoreIcon/ExpandMoreIcon';
 import { Card } from '../Card/Card';
+import { Inputs } from './Inputs';
+import { Top } from './Top';
+import { TablePrivileges } from './TablePrivileges';
 
-export function TablesPrivileges(): JSX.Element {
+export function TablesPrivileges({ tables }: {
+    tables: Array<string>
+}): JSX.Element {
     return (
         <Card
             headerText='Privilegios Sobre Tablas'>
-            <>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        <Typography>Accordion 1</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
-                    >
-                        <Typography>Accordion 2</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion disabled>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel3a-content"
-                        id="panel3a-header"
-                    >
-                        <Typography>Disabled Accordion</Typography>
-                    </AccordionSummary>
-                </Accordion>
-            </>
+            <p className={styles.instructions}>Selecciona una tabla para editar los permisos del usuario</p>
+            <div className={styles.body}>
+                {
+                    tables.map((table: string) => <TablePrivileges tableName={table} />)
+                }
+            </div>
         </Card>
     );
 }

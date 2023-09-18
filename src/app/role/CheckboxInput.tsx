@@ -12,7 +12,7 @@ export function CheckboxInput({
 }): JSX.Element {
     return (
         <div className={styles.checkboxWrapper}>
-            <label>{labelText}</label>
+            <label className={styles.checkboxLabel}>{labelText}</label>
             <Checkbox
                 checked={isChecked}
                 onClick={onClick} />

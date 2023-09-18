@@ -1,1 +1,5 @@
-.icon {}
+.icon {
+    --side: 20px;
+    width: var(--side);
+    height: var(--side);
+}
