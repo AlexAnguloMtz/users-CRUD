@@ -95,7 +95,8 @@
     background-color: rgb(18, 107, 143);
     color: white;
     border: none;
-    padding: 12px 100px;
+    padding: 12px 0;
+    width: min(100%, 400px);
     font-size: 18px;
     border-radius: 4px;
     cursor: pointer;
