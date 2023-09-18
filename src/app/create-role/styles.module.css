@@ -1,13 +1,13 @@
 .body {
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 0 100px 0;
+    padding: 0 16px 100px 16px;
 }
 
 .header {
     color: var(--grey-1);
     margin-bottom: 30px;
-    padding: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .submitButton {
@@ -18,7 +18,7 @@
     background-color: rgb(18, 107, 143);
     border-radius: 6px;
     border: none;
-    margin-top: 60px;
+    margin-top: 30px;
     cursor: pointer;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .privilegesHeader {
-    margin-top: 20px;
+    margin-top: 24px;
     margin-bottom: 16px;
     color: var(--grey-1);
 }

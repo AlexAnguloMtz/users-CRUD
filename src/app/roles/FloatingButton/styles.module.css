@@ -2,8 +2,8 @@
     border-radius: 50%;
     background-color: rgb(18, 107, 143);
     position: fixed;
-    bottom: 40px;
-    right: 40px;
+    bottom: 20px;
+    right: 20px;
     width: 60px;
     height: 60px;
     border: none;
@@ -16,4 +16,11 @@
     width: 30px;
     height: 30px;
     position: relative;
+}
+
+@media screen and (min-width: 950px) {
+    .floatingButton {
+        right: 40px;
+        bottom: 40px;
+    }
 }
