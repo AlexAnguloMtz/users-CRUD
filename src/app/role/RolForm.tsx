@@ -24,17 +24,19 @@ export function RolForm({
                     <h1 className={styles.title}>Usuario</h1>
                     <Rolname name={role.name} />
                 </div>
-                <BasicPrivileges
-                    canCreateRoles={role.canCreateRole}
-                    canCreateDatabases={role.canCreateDatabase}
-                    canLogin={role.canLogin}
-                    onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
-                    onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
-                    onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
-                <TablesPrivileges
-                    tables={[
-                        'Productos'
-                    ]} />
+                <div className={styles.formBody}>
+                    <BasicPrivileges
+                        canCreateRoles={role.canCreateRole}
+                        canCreateDatabases={role.canCreateDatabase}
+                        canLogin={role.canLogin}
+                        onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
+                        onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
+                        onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
+                    <TablesPrivileges
+                        tables={[
+                            'Productos'
+                        ]} />
+                </div>
             </form>
             {/*<SubmitButton
                 onClick={onSubmit}
