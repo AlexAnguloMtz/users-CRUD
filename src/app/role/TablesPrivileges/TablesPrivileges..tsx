@@ -16,7 +16,7 @@ export function TablesPrivileges({
             headerText='Privilegios Sobre Tablas'
             iconSrc={icon}
             iconAlt='privilegios tablas'>
-            <p className={styles.instructions}>Selecciona una tabla para editar los permisos del usuario</p>
+            <p className={styles.instructions}>Selecciona una tabla para editar los permisos de este usuario</p>
             <div className={styles.body}>
                 {
                     model.map((model: TablePrivileges) =>

@@ -25,7 +25,7 @@ export class DatabaseRolesRepository {
         } finally {
             await client.end();
         }
-        throw new Error('Could not count tables');
+        throw new Error('Could not count rows');
     }
 
     async findAll(): Promise<Array<DatabaseRole>> {
@@ -56,7 +56,7 @@ export class DatabaseRolesRepository {
             SELECT rolname, rolsuper, rolcreaterole, rolcreatedb, rolcanlogin
             FROM pg_roles
             WHERE rolname = '${name}'
-    `;
+        `;
 
         const client: Client = this.createDatabaseClient();
         try {
@@ -68,16 +68,14 @@ export class DatabaseRolesRepository {
         } finally {
             await client.end();
         }
-        throw new Error('Could not query roles');
+        throw new Error(`Could not find role with name ${name}`);
     }
 
     async update(name: string, model: DatabaseRole): Promise<DatabaseRole> {
         const client: Client = this.createDatabaseClient();
         try {
             await client.connect();
-            await this.updateRoleCreationPrivilege(name, model, client);
-            await this.updateDatabaseCreationPrivilege(name, model, client);
-            await this.updateLoginPrivilege(name, model, client);
+            await this.updateBasicPrivileges(name, model, client);
             return model;
         } catch (e) {
             console.log(e);
@@ -85,6 +83,12 @@ export class DatabaseRolesRepository {
             await client.end();
         }
         throw new Error('Could not update model');
+    }
+
+    async updateBasicPrivileges(name: string, model: DatabaseRole, client: Client): Promise<void> {
+        await this.updateRoleCreationPrivilege(name, model, client);
+        await this.updateDatabaseCreationPrivilege(name, model, client);
+        await this.updateLoginPrivilege(name, model, client);
     }
 
     async updateRoleCreationPrivilege(name: string, model: DatabaseRole, client: Client) {
