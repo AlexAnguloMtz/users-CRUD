@@ -10,6 +10,7 @@ import { RoleCreationRequest } from '../common/dtos/requests/RoleCreationRequest
 import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { createRole } from './lib/data-fetching';
+import { useRouter } from 'next/navigation';
 
 const initialState = {
     name: '',
@@ -62,8 +63,7 @@ export default function CreateUser(): JSX.Element {
         <PageTemplate>
             <>
                 <SuccessDialog
-                    open={successDialogOpen}
-                    onClose={() => setSuccessDialogOpen(false)} />
+                    open={successDialogOpen} />
                 <ErrorDialog
                     open={errorDialogOpen}
                     onClose={() => setErrorDialogOpen(false)} />
@@ -148,15 +148,19 @@ function SubmitButton(): JSX.Element {
 
 function SuccessDialog({
     open,
-    onClose,
 }: {
     open: boolean,
     onClose: () => void,
 }): JSX.Element {
+
+    const router = useRouter();
+
+    const redirect = (): void => router.push('/roles');
+
     return (
         <Dialog
             open={open}
-            onClose={onClose}>
+            onClose={redirect}>
             <DialogTitle style={{ fontWeight: '600' }}>
                 Usuario creado
             </DialogTitle>
@@ -165,7 +169,7 @@ function SuccessDialog({
             </DialogContent>
             <DialogActions>
                 <button
-                    onClick={onClose}
+                    onClick={redirect}
                     style={{ backgroundColor: 'black', border: 'none', padding: '12px 20px', color: 'white', borderRadius: '6px', cursor: 'pointer' }}>
                     Aceptar
                 </button>
