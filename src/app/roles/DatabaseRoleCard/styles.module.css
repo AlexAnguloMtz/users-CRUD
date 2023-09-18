@@ -51,6 +51,8 @@
     font-size: 14px;
 }
 
+.popupMenu {}
+
 .popupMenuIcon {
     --side: 25px;
     width: var(--side);

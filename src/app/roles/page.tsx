@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 import { fetchData } from './lib/data-fetching';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
-import { PageBody } from './Cards';
+import { Cards } from './Cards';
 import PageTemplate from '../client/components/PageTemplate/page';
 
 type Result = undefined | Error | Array<DatabaseRole>
@@ -41,7 +41,7 @@ function Body({ result }: {
     if (result instanceof Error) {
         return <ErrorScreen error={result} />
     }
-    return <PageBody data={result} />
+    return <Cards data={result} />
 }
 
 
