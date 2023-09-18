@@ -1,9 +1,6 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import styles from './styles.module.css';
-import { ExpandMoreIcon } from '../ExpandMoreIcon/ExpandMoreIcon';
+import icon from '../../../../public/database-checkmark.png';
 import { Card } from '../Card/Card';
-import { Inputs } from './Inputs';
-import { Top } from './Top';
 import { TablePrivileges } from './TablePrivileges';
 
 export function TablesPrivileges({ tables }: {
@@ -11,7 +8,9 @@ export function TablesPrivileges({ tables }: {
 }): JSX.Element {
     return (
         <Card
-            headerText='Privilegios Sobre Tablas'>
+            headerText='Privilegios Sobre Tablas'
+            iconSrc={icon}
+            iconAlt='privilegios tablas'>
             <p className={styles.instructions}>Selecciona una tabla para editar los permisos del usuario</p>
             <div className={styles.body}>
                 {

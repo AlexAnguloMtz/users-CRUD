@@ -1,6 +1,7 @@
+import styles from './styles.module.css';
 import { Card } from './Card/Card';
 import { CheckboxInput } from './CheckboxInput';
-import styles from './styles.module.css';
+import icon from '../../../public/key.png';
 
 export function BasicPrivileges({
     onCanCreateRoles,
@@ -20,7 +21,9 @@ export function BasicPrivileges({
     return (
         <Card
             headerText='Privilegios Básicos'
-            className={styles.basicPrivileges}>
+            className={styles.basicPrivileges}
+            iconSrc={icon}
+            iconAlt='privilegios básicos'>
             <div>
                 <CheckboxInput
                     labelText={'CREATEROLE'}

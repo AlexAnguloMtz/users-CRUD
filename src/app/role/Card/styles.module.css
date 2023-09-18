@@ -3,14 +3,41 @@
     border-radius: 6px;
 }
 
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 6px;
+    background: linear-gradient(45deg, rgb(7, 121, 105), rgb(21, 168, 149));
+}
+
+.top,
+.header {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
 .body {
     padding: 16px;
 }
 
 .header {
     padding: 16px;
-    background: linear-gradient(45deg, rgb(7, 121, 105), rgb(21, 168, 149));
     color: white;
-    border-top-right-radius: inherit;
-    border-top-left-radius: inherit;
+}
+
+.iconContainer {
+    --side: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgb(176, 214, 219), rgb(255, 255, 255));
+    width: var(--side);
+    height: var(--side);
+    display: grid;
+    place-items: center;
+}
+
+.icon {
+    --side: 30px;
+    width: var(--side);
+    height: var(--side);
 }
