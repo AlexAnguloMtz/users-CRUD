@@ -23,35 +23,39 @@ export default function CreateUser(): JSX.Element {
 
     const [isLoading, setLoading] = useState<boolean>(false);
 
-    const [request, setRequest] = useState<RoleCreationRequest | undefined>(undefined);
-
     const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false);
 
     const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
 
+    const [conflictDialogOpen, setConflictDialogOpen] = useState<boolean>(false);
+
     const formik = useFormik({
         initialValues: initialState,
         validationSchema: validationSchema(),
-        onSubmit: setRequest
-    });
-
-    useEffect(() => {
-        if (request) {
+        onSubmit: (request: RoleCreationRequest) => {
             setLoading(true);
-            createRole(request)
-                .then(handleSuccess)
-                .catch(handleError);
+            createRole(
+                request,
+                handleConflict,
+                handleError,
+                handleSuccess
+            );
         }
-    }, [request]);
+    });
 
     function handleSuccess(): void {
         setLoading(false);
         setSuccessDialogOpen(true);
     }
 
-    function handleError(error: Error): void {
+    function handleError(): void {
         setLoading(false);
         setErrorDialogOpen(true);
+    }
+
+    function handleConflict(): void {
+        setLoading(false);
+        setConflictDialogOpen(true);
     }
 
     return (
@@ -63,6 +67,9 @@ export default function CreateUser(): JSX.Element {
                 <ErrorDialog
                     open={errorDialogOpen}
                     onClose={() => setErrorDialogOpen(false)} />
+                <ConflictDialog
+                    open={conflictDialogOpen}
+                    onClose={() => setConflictDialogOpen(false)} />
                 {
                     (isLoading)
                         ? <LoadingIndicator />
@@ -183,6 +190,34 @@ function ErrorDialog({
             </DialogTitle>
             <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
                 No se pudo crear el usuario. Intenta de nuevo.
+            </DialogContent>
+            <DialogActions>
+                <button
+                    onClick={onClose}
+                    style={{ backgroundColor: 'black', border: 'none', padding: '12px 20px', color: 'white', borderRadius: '6px', cursor: 'pointer' }}>
+                    Aceptar
+                </button>
+            </DialogActions>
+        </Dialog>
+    );
+}
+
+function ConflictDialog({
+    open,
+    onClose,
+}: {
+    open: boolean,
+    onClose: () => void,
+}): JSX.Element {
+    return (
+        <Dialog
+            open={open}
+            onClose={onClose}>
+            <DialogTitle style={{ fontWeight: '600' }}>
+                Error: Usuario ya existe
+            </DialogTitle>
+            <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
+                Ya existe un usuario con este nombre. Intenta con otro.
             </DialogContent>
             <DialogActions>
                 <button

@@ -1,6 +1,7 @@
 import { DatabaseRole } from "@/app/common/dtos/responses/DatabaseRole";
 import { DatabaseRolesRepository } from "../repositories/DatabaseRolesRepository";
 import { RoleCreationRequest } from "@/app/common/dtos/requests/RoleCreationRequest";
+import { ConflictException } from "@/app/common/exceptions/ConflictException";
 
 export class DatabaseRolesService {
 
@@ -19,6 +20,9 @@ export class DatabaseRolesService {
     }
 
     async create(request: RoleCreationRequest) {
+        if (await this.repository.existsByName(request.name)) {
+            throw new ConflictException(`Role with name ${request.name} already exists`);
+        }
         await this.repository.create(request);
     }
 

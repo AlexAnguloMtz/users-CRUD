@@ -4,6 +4,7 @@ import { Client, QueryResult } from "pg";
 
 export class DatabaseRolesRepository {
 
+
     constructor(readonly createDatabaseClient: () => Client) { }
 
     async count(): Promise<number> {
@@ -107,6 +108,21 @@ export class DatabaseRolesRepository {
             await client.end();
         }
         throw new Error('Could not update model');
+    }
+
+    async existsByName(name: string): Promise<boolean> {
+        const client: Client = this.createDatabaseClient();
+        const query = `SELECT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = '${name}')`;
+        try {
+            await client.connect();
+            const result: QueryResult = await client.query(query);
+            return result.rows[0].exists;
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await client.end();
+        }
+        throw new Error('Could not check if role exists');
     }
 
     async updateBasicPrivileges(name: string, model: DatabaseRole, client: Client): Promise<void> {
