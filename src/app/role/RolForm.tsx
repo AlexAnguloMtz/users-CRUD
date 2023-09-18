@@ -38,9 +38,9 @@ export function RolForm({
                         onPrivilegeClick={(privilege: TablePrivilege) => roleConsumer(togglePrivilege(role, privilege))} />
                 </div>
             </form>
-            {/*<SubmitButton
+            <SubmitButton
                 onClick={onSubmit}
-    enabled={submitButtonEnabled} />*/}
+                enabled={submitButtonEnabled} />
         </>
     );
 }
