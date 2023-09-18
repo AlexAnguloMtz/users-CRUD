@@ -1,9 +1,8 @@
 import { RoleCreationRequest } from "@/app/common/dtos/requests/RoleCreationRequest";
 
-export async function createRole(request: RoleCreationRequest): Promise<boolean> {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(true);
-        }, 2000);
+export async function createRole(request: RoleCreationRequest): Promise<void> {
+    await fetch('/api/roles', {
+        method: 'POST',
+        body: JSON.stringify(request)
     });
 }

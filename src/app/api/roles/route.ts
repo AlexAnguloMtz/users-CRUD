@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { rolesService } from "../lib/ioc-container/ioc-container";
+import { RoleCreationRequest } from "@/app/common/dtos/requests/RoleCreationRequest";
 
 export async function GET(request: Request) {
     const url = new URL(request.url);
@@ -8,6 +9,11 @@ export async function GET(request: Request) {
         return NextResponse.json(await rolesService.findByName(name));
     }
     return NextResponse.json(await rolesService.findAll());
+}
+
+export async function POST(request: Request) {
+    await rolesService.create(await request.json() as RoleCreationRequest);
+    return NextResponse.json(true);
 }
 
 export async function PUT(request: Request) {

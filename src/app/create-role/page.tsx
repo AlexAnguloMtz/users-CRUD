@@ -13,6 +13,7 @@ import { createRole } from './lib/data-fetching';
 
 const initialState = {
     name: '',
+    password: '',
     canCreateDb: false,
     canCreateRole: false,
     canLogin: false,
@@ -24,7 +25,9 @@ export default function CreateUser(): JSX.Element {
 
     const [request, setRequest] = useState<RoleCreationRequest | undefined>(undefined);
 
-    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false);
+
+    const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
 
     const formik = useFormik({
         initialValues: initialState,
@@ -37,28 +40,29 @@ export default function CreateUser(): JSX.Element {
             setLoading(true);
             createRole(request)
                 .then(handleSuccess)
-                .catch();
+                .catch(handleError);
         }
     }, [request]);
 
     function handleSuccess(): void {
         setLoading(false);
-        setDialogOpen(true);
+        setSuccessDialogOpen(true);
     }
 
-    function canSubmit(): boolean {
-        return (
-            formik.errors.name === undefined &&
-            formik.values.name.length > 0
-        );
+    function handleError(error: Error): void {
+        setLoading(false);
+        setErrorDialogOpen(true);
     }
 
     return (
         <PageTemplate>
             <>
                 <SuccessDialog
-                    open={dialogOpen}
-                    onClose={() => setDialogOpen(false)} />
+                    open={successDialogOpen}
+                    onClose={() => setSuccessDialogOpen(false)} />
+                <ErrorDialog
+                    open={errorDialogOpen}
+                    onClose={() => setErrorDialogOpen(false)} />
                 {
                     (isLoading)
                         ? <LoadingIndicator />
@@ -86,6 +90,20 @@ export default function CreateUser(): JSX.Element {
                                     error={formik.touched.name && Boolean(formik.errors.name)}
                                     helperText={formik.touched.name && formik.errors.name}
                                 />
+                                <TextField
+                                    fullWidth
+                                    id="password"
+                                    name="password"
+                                    label="Contraseña"
+                                    variant="outlined"
+                                    margin="normal"
+                                    autoComplete="off"
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.password}
+                                    error={formik.touched.password && Boolean(formik.errors.password)}
+                                    helperText={formik.touched.password && formik.errors.password}
+                                />
 
                                 <h4 className={styles.privilegesHeader}>Privilegios básicos para este usuario</h4>
 
@@ -104,8 +122,7 @@ export default function CreateUser(): JSX.Element {
                                     isChecked={formik.values.canLogin}
                                     onChange={formik.handleChange}
                                     name='canLogin' />
-
-                                <SubmitButton disabled={!canSubmit()} />
+                                <SubmitButton />
                             </form>
                         </>
                 }
@@ -114,13 +131,9 @@ export default function CreateUser(): JSX.Element {
     );
 }
 
-function SubmitButton({ disabled }: {
-    disabled: boolean
-}): JSX.Element {
+function SubmitButton(): JSX.Element {
     return (
-        <button
-            className={disabled ? styles.submitButtonDisabled : styles.submitButton}
-            disabled={disabled}>
+        <button className={styles.submitButton}>
             Crear usuario
         </button>
     );
@@ -154,13 +167,49 @@ function SuccessDialog({
     );
 }
 
+function ErrorDialog({
+    open,
+    onClose,
+}: {
+    open: boolean,
+    onClose: () => void,
+}): JSX.Element {
+    return (
+        <Dialog
+            open={open}
+            onClose={onClose}>
+            <DialogTitle style={{ fontWeight: '600' }}>
+                Error inesperado
+            </DialogTitle>
+            <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
+                No se pudo crear el usuario. Intenta de nuevo.
+            </DialogContent>
+            <DialogActions>
+                <button
+                    onClick={onClose}
+                    style={{ backgroundColor: 'black', border: 'none', padding: '12px 20px', color: 'white', borderRadius: '6px', cursor: 'pointer' }}>
+                    Aceptar
+                </button>
+            </DialogActions>
+        </Dialog>
+    );
+}
+
 function validationSchema() {
-    const maxLength: number = 20;
+    const usernameMaxLength: number = 20;
+    const passwordMinLength: number = 8;
+    const passwordMaxLength: number = 50;
     return yup.object({
         name: yup
             .string()
             .required('El nombre de usuario es requerido')
-            .max(maxLength, `El nombre de usuario debe tener máximo ${maxLength} caracteres`)
+            .max(usernameMaxLength, `El nombre de usuario debe tener máximo ${usernameMaxLength} caracteres`)
             .matches(/^[a-zA-Z_]+$/, 'El nombre de usuario solo debe contener letras y guión bajo (_)'),
+        password: yup
+            .string()
+            .required('La contraseña es requerida')
+            .min(8, `La contraseña debe tener al menos ${passwordMinLength} caracteres`)
+            .max(50, `La contraseña debe tener máximo ${passwordMaxLength} caracteres`)
+            .matches(/^[a-zA-Z0-9]+$/, 'Sólo se admiten mayúsculas, minúsculas y números')
     });
 } 

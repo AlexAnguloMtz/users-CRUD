@@ -1,3 +1,4 @@
+import { RoleCreationRequest } from "@/app/common/dtos/requests/RoleCreationRequest";
 import { DatabaseRole } from "@/app/common/dtos/responses/DatabaseRole";
 import { Client, QueryResult } from "pg";
 
@@ -69,6 +70,29 @@ export class DatabaseRolesRepository {
             await client.end();
         }
         throw new Error(`Could not find role with name ${name}`);
+    }
+
+    async create(request: RoleCreationRequest): Promise<void> {
+
+        const client: Client = this.createDatabaseClient();
+
+        const roleCreationQuery = `
+            CREATE ROLE ${request.name} WITH
+            PASSWORD '${request.password}'
+            ${(request.canCreateDb) ? 'CREATEDB' : 'NOCREATEDB'}
+            ${(request.canCreateRole) ? 'CREATEROLE' : 'NOCREATEROLE'}
+            ${(request.canLogin) ? 'LOGIN' : 'NOLOGIN'}
+        `;
+
+        try {
+            await client.connect();
+            await client.query(roleCreationQuery);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await client.end();
+        }
+        throw new Error('Could not create role');
     }
 
     async update(name: string, model: DatabaseRole): Promise<DatabaseRole> {

@@ -1,5 +1,6 @@
 import { DatabaseRole } from "@/app/common/dtos/responses/DatabaseRole";
 import { DatabaseRolesRepository } from "../repositories/DatabaseRolesRepository";
+import { RoleCreationRequest } from "@/app/common/dtos/requests/RoleCreationRequest";
 
 export class DatabaseRolesService {
 
@@ -17,8 +18,12 @@ export class DatabaseRolesService {
         return this.repository.findByName(name);
     }
 
+    async create(request: RoleCreationRequest) {
+        await this.repository.create(request);
+    }
+
     async update(name: string, model: DatabaseRole): Promise<DatabaseRole> {
-        return this.repository.update(name, model);
+        return await this.repository.update(name, model);
     }
 
 }
