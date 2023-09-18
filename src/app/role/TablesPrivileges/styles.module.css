@@ -5,7 +5,7 @@
     gap: 20px;
 }
 
-.inputs {}
+.accordion {}
 
 .top {
     background: linear-gradient(45deg, rgb(33, 107, 141), rgb(56, 150, 194));
@@ -13,6 +13,28 @@
     border-radius: 6px;
 }
 
+.topContent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .instructions {
     line-height: 1.6;
+}
+
+.iconContainer {
+    --side: 40px;
+    border-radius: 50%;
+    width: var(--side);
+    height: var(--side);
+    display: grid;
+    place-items: center;
+    background: linear-gradient(45deg, rgb(176, 214, 219), rgb(255, 255, 255));
+}
+
+.icon {
+    --side: 30px;
+    width: var(--side);
+    height: var(--side);
 }

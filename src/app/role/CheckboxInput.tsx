@@ -1,5 +1,5 @@
-import { Checkbox } from '@mui/material';
 import styles from './styles.module.css';
+import { Checkbox } from '@mui/material';
 
 export function CheckboxInput({
     isChecked,

@@ -2,8 +2,12 @@ import { AccordionDetails } from '@mui/material';
 import styles from './styles.module.css';
 import { CheckboxInput } from '../CheckboxInput';
 
-export function Inputs({ model }: {
-    model: Array<string>
+export function Inputs({
+    model,
+    privilegeConsumer
+}: {
+    model: Array<string>,
+    privilegeConsumer: (privilege: string) => void,
 }): JSX.Element {
     return (
         <AccordionDetails>
@@ -13,7 +17,7 @@ export function Inputs({ model }: {
                         <CheckboxInput
                             isChecked={model.includes(privilege)}
                             labelText={privilege}
-                            onClick={() => { }} />
+                            onClick={() => privilegeConsumer(privilege)} />
                     )
                 }
             </div>

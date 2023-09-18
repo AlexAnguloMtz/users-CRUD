@@ -2,9 +2,14 @@ import styles from './styles.module.css';
 import icon from '../../../../public/database-checkmark.png';
 import { Card } from '../Card/Card';
 import { TablePrivilegesInput } from './TablePrivilegesInput';
+import { TablePrivilege } from '@/app/common/dtos/responses/TablePrivilege';
 
-export function TablesPrivileges({ model }: {
-    model: Array<TablePrivileges>
+export function TablesPrivileges({
+    model,
+    onPrivilegeClick,
+}: {
+    model: Array<TablePrivileges>,
+    onPrivilegeClick: (privilege: TablePrivilege) => void
 }): JSX.Element {
     return (
         <Card
@@ -15,7 +20,9 @@ export function TablesPrivileges({ model }: {
             <div className={styles.body}>
                 {
                     model.map((model: TablePrivileges) =>
-                        < TablePrivilegesInput model={model} />)
+                        < TablePrivilegesInput
+                            model={model}
+                            onPrivilegeClick={onPrivilegeClick} />)
                 }
             </div>
         </Card>

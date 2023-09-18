@@ -1,10 +1,11 @@
 'use client';
 
 import styles from './styles.module.css';
-import { DatabaseRole } from "../common/dtos/responses/DatabaseRole";
+import { DatabaseRole, togglePrivilege } from "../common/dtos/responses/DatabaseRole";
 import { Rolname } from './Rolname';
 import { BasicPrivileges } from './BasicPrivileges';
 import TablesPrivileges from './TablesPrivileges';
+import { TablePrivilege } from '../common/dtos/responses/TablePrivilege';
 
 export function RolForm({
     role,
@@ -32,7 +33,9 @@ export function RolForm({
                         onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
                         onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
                         onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
-                    <TablesPrivileges model={role.tablesPrivileges} />
+                    <TablesPrivileges
+                        model={role.tablesPrivileges}
+                        onPrivilegeClick={(privilege: TablePrivilege) => roleConsumer(togglePrivilege(role, privilege))} />
                 </div>
             </form>
             {/*<SubmitButton
