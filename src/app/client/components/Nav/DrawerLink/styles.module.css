@@ -3,25 +3,20 @@
     align-items: center;
     gap: 20px;
     padding: 12px;
-    border: 2px rgb(18, 107, 143) solid;
     border-radius: 6px;
     transition: background-color 250ms ease;
     cursor: pointer;
+    background-color: rgb(40, 148, 190);
 }
 
 .name {
-    color: rgb(18, 107, 143);
+    color: white;
     transition: color 250ms ease;
 }
 
 .drawerLink:hover,
 .drawerLink:active {
-    background-color: rgb(18, 107, 143);
-}
-
-.drawerLink:hover .name,
-.drawerLink:active .name {
-    color: white;
+    background-color: rgb(17, 90, 119);
 }
 
 .image {
