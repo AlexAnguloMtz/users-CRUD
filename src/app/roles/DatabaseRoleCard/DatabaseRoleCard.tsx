@@ -5,9 +5,14 @@ import avatarImage from '../../../../public/profile-avatar.png';
 import { DatabaseRole } from '@/app/common/dtos/responses/DatabaseRole';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { MouseEventHandler } from 'react';
 
-export function DatabaseRoleCard({ model }: {
-    model: DatabaseRole
+export function DatabaseRoleCard({
+    model,
+    onClick,
+}: {
+    model: DatabaseRole,
+    onClick: MouseEventHandler<HTMLElement>
 }): JSX.Element {
 
     const router = useRouter();
@@ -15,7 +20,7 @@ export function DatabaseRoleCard({ model }: {
     return (
         <article
             className={styles.card}
-            onClick={(_) => router.push(`/role?name=${model.name}`)}>
+            onClick={onClick}>
             {model.isSuperUser ? <SuperUserTag /> : <></>}
             <div className={styles.avatarAndNameWrapper}>
                 <Avatar />

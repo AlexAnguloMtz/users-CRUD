@@ -51,6 +51,12 @@
     font-size: 14px;
 }
 
+.popupMenuIcon {
+    --side: 25px;
+    width: var(--side);
+    height: var(--side);
+}
+
 @media screen and (min-width: 800px) {
     .card {
         width: 45%;
