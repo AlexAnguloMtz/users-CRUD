@@ -10,14 +10,30 @@ export default function PageTemplatee({ children }: {
     return (
         <div className={styles.page}>
             <Nav />
-            <div className={styles.content}>
-                <div className={styles.drawer}>
-                    <DrawerLinks />
-                </div>
-                <div className={styles.body}>
-                    {children}
-                </div>
+            <PageContent>
+                {children}
+            </PageContent>
+        </div>
+    );
+}
+
+function PageContent({ children }: {
+    children: JSX.Element
+}): JSX.Element {
+    return (
+        <div className={styles.content}>
+            <DesktopDrawer />
+            <div className={styles.body}>
+                {children}
             </div>
+        </div>
+    );
+}
+
+function DesktopDrawer(): JSX.Element {
+    return (
+        <div className={styles.drawer}>
+            <DrawerLinks />
         </div>
     );
 }

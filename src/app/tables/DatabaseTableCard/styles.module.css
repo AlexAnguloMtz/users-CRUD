@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    background-color: rgb(54, 155, 113);
+    background: linear-gradient(45deg, rgb(77, 185, 140), rgb(101, 199, 158));
     padding: 10px;
     border-radius: 5px;
 }
