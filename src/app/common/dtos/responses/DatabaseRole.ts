@@ -4,4 +4,5 @@ export type DatabaseRole = {
     canCreateRole: boolean,
     canCreateDatabase: boolean,
     canLogin: boolean,
+    tablesPrivileges: Array<TablePrivileges>
 }

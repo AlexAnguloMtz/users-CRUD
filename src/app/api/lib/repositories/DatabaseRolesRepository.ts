@@ -108,7 +108,17 @@ export class DatabaseRolesRepository {
             isSuperUser: row.rolsuper,
             canCreateRole: row.rolcreaterole,
             canCreateDatabase: row.rolcreatedb,
-            canLogin: row.rolcanlogin
+            canLogin: row.rolcanlogin,
+            tablesPrivileges: [
+                {
+                    tableName: "Ventas",
+                    privileges: ["SELECT", "TRUNCATE"]
+                },
+                {
+                    tableName: "Clientes",
+                    privileges: ["DELETE", "REFERENCES", "TRIGGER"]
+                },
+            ]
         };
     }
 

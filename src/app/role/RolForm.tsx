@@ -32,10 +32,7 @@ export function RolForm({
                         onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
                         onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
                         onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
-                    <TablesPrivileges
-                        tables={[
-                            'Productos'
-                        ]} />
+                    <TablesPrivileges model={role.tablesPrivileges} />
                 </div>
             </form>
             {/*<SubmitButton
@@ -61,3 +58,4 @@ function SubmitButton({ onClick, enabled }: {
         </div>
     );
 }
+
