@@ -1,6 +1,5 @@
 'use client';
 
-import { Nav } from '@/app/client/components/Nav/Nav';
 import styles from './styles.module.css';
 import { DatabaseTable } from '@/app/common/dtos/responses/DatabaseTable';
 import { DatabaseTableCard } from './DatabaseTableCard/DatabaseTableCard';
@@ -8,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { fetchTables } from './lib/fetchTables';
-import { PageTemplate } from '../client/components/PageTemplate/PageTemplate';
+import PageTemplate from '../client/components/PageTemplate/page';
 
 type Result = undefined | Error | Array<DatabaseTable>
 

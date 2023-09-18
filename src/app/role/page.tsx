@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { DatabaseRole } from "../common/dtos/responses/DatabaseRole";
-import { Nav } from "../client/components/Nav/Nav";
 import { LoadingIndicator } from "../client/components/LoadingIndicator/LoadingIndicator";
 import { ErrorScreen } from "../client/components/ErrorScreen/ErrorScreen";
 import { fetchRole, updateRole } from "./lib/data-fetching";
 import { RolForm } from './RolForm';
 import { SuccessDialog } from "./SuccessDialog";
-import { PageTemplate } from "../client/components/PageTemplate/PageTemplate";
+import PageTemplate from "../client/components/PageTemplate/page";
 
 type SearchParams = {
     name: string

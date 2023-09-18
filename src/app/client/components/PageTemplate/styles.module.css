@@ -1,19 +1,28 @@
-.content {
+.page {
+    height: 100vh;
     display: flex;
-    justify-content: flex-end;
-    height: calc(100vh - var(--navHeight));
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+}
+
+.drawer {
+    display: none;
+    width: 250px;
+    box-shadow: 2px 0 4px 2px rgba(0, 0, 0, 0.2);
+    padding: 12px;
 }
 
 .body {
-    width: 100%;
-    overflow: scroll;
-    overflow-x: hidden;
+    flex: 1;
     position: relative;
 }
 
 @media screen and (min-width: 950px) {
-    .body {
-        width: calc(100vw - var(--desktopDrawerWidth));
-        padding: 0 30px;
+    .drawer {
+        display: block;
     }
 }

@@ -2,12 +2,11 @@
 
 import styles from './styles.module.css';
 import { DashboardData } from '@/app/common/dtos/responses/DashboardData';
-import { Nav } from '@/app/client/components/Nav/Nav';
 import { Cards } from './Cards';
 import { fetchDashboardData } from './lib/data-fetching';
 import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
-import { PageTemplate } from '../client/components/PageTemplate/PageTemplate';
+import PageTemplate from '../client/components/PageTemplate/page';
 
 type Result = undefined | Error | DashboardData
 
