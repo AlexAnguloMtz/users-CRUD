@@ -1,3 +1,4 @@
+import { Card } from './Card/Card';
 import { CheckboxInput } from './CheckboxInput';
 import styles from './styles.module.css';
 
@@ -17,8 +18,9 @@ export function BasicPrivileges({
     canLogin: boolean,
 }): JSX.Element {
     return (
-        <div className={styles.basicPrivileges}>
-            <h3 className={styles.header}>Privilegios Básicos</h3>
+        <Card
+            headerText='Privilegios Básicos'
+            className={styles.basicPrivileges}>
             <div>
                 <CheckboxInput
                     labelText={'Crear usuarios'}
@@ -33,6 +35,6 @@ export function BasicPrivileges({
                     onClick={onCanLogin}
                     isChecked={canLogin} />
             </div>
-        </div>
+        </Card >
     );
 }
