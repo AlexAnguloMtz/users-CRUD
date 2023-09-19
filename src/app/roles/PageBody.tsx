@@ -13,7 +13,7 @@ export function PageBody({
     return (
         <div className={styles.cardsContainer}>
             {
-                data.map((model: DatabaseRole) =>
+                sorted(data).map((model: DatabaseRole) =>
                     <DatabaseRoleCard
                         key={model.name}
                         model={model} />
@@ -23,3 +23,11 @@ export function PageBody({
     );
 }
 
+function sorted(arr: Array<DatabaseRole>): Array<DatabaseRole> {
+    return arr.sort((a, b) => {
+        if (a.isSuperUser === b.isSuperUser) {
+            return a.name.localeCompare(b.name);
+        }
+        return a.isSuperUser ? -1 : 1;
+    });
+}
