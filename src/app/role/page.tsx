@@ -19,6 +19,8 @@ export default function RolePage({ searchParams }: {
     searchParams: SearchParams
 }): JSX.Element {
 
+    console.log('rolname = ' + searchParams.rolname);
+
     const [result, setResult] = useState<Result>(new Error());
 
     const [isLoadingInitialData, setLoadingInitialData] = useState<boolean>(true);
