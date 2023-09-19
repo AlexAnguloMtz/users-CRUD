@@ -53,7 +53,7 @@ export class DatabaseRolesRepository {
         } finally {
             await client.end();
         }
-        throw new Error('Could not query roles');
+        throw new Error('Could not query roles.');
     }
 
     async findByName(name: string): Promise<DatabaseRole> {
