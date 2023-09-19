@@ -19,7 +19,7 @@ export function TablesPrivileges({
             <p className={styles.instructions}>Selecciona una tabla para editar los permisos de este usuario</p>
             <div className={styles.body}>
                 {
-                    model.map((model: TablePrivileges) =>
+                    sorted(model).map((model: TablePrivileges) =>
                         < TablePrivilegesInput
                             key={model.tableName}
                             model={model}
@@ -28,4 +28,8 @@ export function TablesPrivileges({
             </div>
         </Card>
     );
+}
+
+function sorted(arr: Array<TablePrivileges>): Array<TablePrivileges> {
+    return arr.sort((a, b) => a.tableName.localeCompare(b.tableName));
 }
