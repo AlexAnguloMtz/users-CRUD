@@ -44,7 +44,7 @@ export async function DELETE(request: Request) {
     const rolname = url.searchParams.get("rolname")
     if (rolname) {
         await rolesService.delete(rolname);
-        return NextResponse.json({}, { status: HttpStatus.NO_CONTENT });
+        return NextResponse.json({ 'deleted': true }, { status: HttpStatus.OK });
     }
     throw new Error('Invalid query parameters');
 }

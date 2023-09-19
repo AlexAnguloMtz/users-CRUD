@@ -12,8 +12,8 @@ export class DatabaseRolesRepository {
             SELECT COUNT(*)
             FROM (
                 SELECT rolname from pg_roles 
-                WHERE rolname NOT LIKE 'pg%'
-            ) AS database_roles;
+                WHERE rolname NOT LIKE 'pg_%'
+            ) AS database_roles
         `;
 
         const client: Client = this.createDatabaseClient();

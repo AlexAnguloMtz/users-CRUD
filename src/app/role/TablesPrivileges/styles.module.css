@@ -8,8 +8,8 @@
 .accordion {}
 
 .top {
-    background: linear-gradient(45deg, rgb(33, 107, 141), rgb(56, 150, 194));
-    color: white;
+    background: linear-gradient(45deg, rgb(56, 136, 173), rgb(105, 190, 230));
+    color: black;
     border-radius: 6px;
 }
 
