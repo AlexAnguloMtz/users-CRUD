@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './styles.module.css';
-import PageTemplate from "../client/components/PageTemplate/page";
+import { PageTemplate } from "../client/components/PageTemplate/page";
 import { TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { CheckboxInput } from '../role/CheckboxInput';

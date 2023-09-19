@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { fetchTables } from './lib/fetchTables';
-import PageTemplate from '../client/components/PageTemplate/page';
+import { PageTemplate } from '../client/components/PageTemplate/page';
 
 type Result = undefined | Error | Array<DatabaseTable>
 

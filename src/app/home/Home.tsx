@@ -6,7 +6,7 @@ import { Cards } from './Cards';
 import { fetchDashboardData } from './lib/data-fetching';
 import { useEffect, useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
-import PageTemplate from '../client/components/PageTemplate/page';
+import { PageTemplate } from '../client/components/PageTemplate/page';
 
 type Result = undefined | Error | DashboardData
 

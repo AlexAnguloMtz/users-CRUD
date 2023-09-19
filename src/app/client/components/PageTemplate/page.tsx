@@ -4,7 +4,7 @@ import { DrawerLinks } from '../Nav/DrawerLinks/DrawerLinks';
 import { Nav } from '../Nav/Nav';
 import styles from './styles.module.css';
 
-export default function PageTemplatee({ children }: {
+export function PageTemplate({ children }: {
     children: JSX.Element
 }): JSX.Element {
     return (

@@ -7,7 +7,7 @@ import { findRoles } from './lib/data-fetching';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { Cards } from './Cards';
-import PageTemplate from '../client/components/PageTemplate/page';
+import { PageTemplate } from '../client/components/PageTemplate/page';
 
 export default function Roles(): JSX.Element {
 
@@ -25,7 +25,7 @@ export default function Roles(): JSX.Element {
                 .then(handleData)
                 .catch(handleError)
         }
-    }, [isLoading]);
+    }, [isLoading, search]);
 
     function handleData(data: Array<DatabaseRole>): void {
         setLoading(false);
