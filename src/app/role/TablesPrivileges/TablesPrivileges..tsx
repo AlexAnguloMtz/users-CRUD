@@ -11,7 +11,6 @@ export function TablesPrivileges({
     model: Array<TablePrivileges>,
     onPrivilegeClick: (privilege: TablePrivilege) => void
 }): JSX.Element {
-    alert(JSON.stringify(model));
     return (
         <Card
             headerText='Privilegios Sobre Tablas'
