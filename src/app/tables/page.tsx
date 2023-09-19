@@ -21,7 +21,7 @@ export default function Tables(): JSX.Element {
                 .then((data: Array<DatabaseTable>) => setResult(() => data))
                 .catch((error: Error) => setResult(() => error));
         }
-    }, []);
+    }, [result]);
 
     return (
         <PageTemplate>
@@ -52,7 +52,9 @@ function Cards({ tables }: {
             <h1 className={styles.header}>Tablas</h1>
             <div className={styles.cards}>
                 {tables.map((table: DatabaseTable) =>
-                    <DatabaseTableCard table={table} />)}
+                    <DatabaseTableCard
+                        key={table.name}
+                        table={table} />)}
             </div>
         </>
     );

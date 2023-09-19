@@ -33,7 +33,7 @@ export default function RolePage({ searchParams }: {
                 .then(handleInitialFetchResult)
                 .catch(handleInitialFetchResult)
         }
-    }, []);
+    }, [isLoadingInitialData]);
 
     useEffect(() => {
         if (isUpdating) {

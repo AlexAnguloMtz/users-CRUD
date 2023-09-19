@@ -20,7 +20,7 @@ export default function Home(): JSX.Element {
                 .then((data: DashboardData) => setResult(() => data))
                 .catch((error: Error) => setResult(() => error));
         }
-    }, []);
+    }, [result]);
 
     return (
         <PageTemplate>
