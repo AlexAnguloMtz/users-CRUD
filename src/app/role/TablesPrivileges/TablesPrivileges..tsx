@@ -21,6 +21,7 @@ export function TablesPrivileges({
                 {
                     model.map((model: TablePrivileges) =>
                         < TablePrivilegesInput
+                            key={model.tableName}
                             model={model}
                             onPrivilegeClick={onPrivilegeClick} />)
                 }
