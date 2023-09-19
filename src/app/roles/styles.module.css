@@ -23,6 +23,10 @@
     color: var(--grey-1);
 }
 
+.searchContainer {
+    max-width: 500px;
+}
+
 @media screen and (min-width: 800px) {
     .cardsContainer {
         display: flex;

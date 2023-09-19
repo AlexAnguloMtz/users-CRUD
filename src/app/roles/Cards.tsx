@@ -21,10 +21,12 @@ export function Cards({
         <>
             <h1 className={styles.header}>Usuarios</h1>
             <p className={styles.instructions}>Seleccione un usuario para ver y editar sus permisos</p>
-            <SearchBar
-                onSearch={onSearch}
-                value={search}
-                onChange={onSearchChanged} />
+            <div className={styles.searchContainer}>
+                <SearchBar
+                    onSearch={onSearch}
+                    value={search}
+                    onChange={onSearchChanged} />
+            </div>
             <p className={styles.amount}>{data.length} resultados</p>
             <PageBody
                 data={data} />
