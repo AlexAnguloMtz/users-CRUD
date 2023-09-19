@@ -18,6 +18,10 @@
     background-color: rgb(6, 60, 82);
 }
 
+.floatingButton:focus {
+    -webkit-tap-highlight-color: transparent;
+}
+
 .icon {
     width: 30px;
     height: 30px;

@@ -2,15 +2,17 @@
 
 import styles from './styles.module.css';
 import PageTemplate from "../client/components/PageTemplate/page";
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import * as yup from 'yup';
+import { TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { CheckboxInput } from '../role/CheckboxInput';
 import { RoleCreationRequest } from '../common/dtos/requests/RoleCreationRequest';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { createRole } from './lib/data-fetching';
-import { useRouter } from 'next/navigation';
+import { SuccessDialog } from './SuccessDialog';
+import { ErrorDialog } from './ErrorDialog';
+import { ConflictDialog } from './ConflictDialog';
+import { roleCreationValidationSchema } from './validations';
 
 const initialState = {
     name: '',
@@ -32,7 +34,7 @@ export default function CreateUser(): JSX.Element {
 
     const formik = useFormik({
         initialValues: initialState,
-        validationSchema: validationSchema(),
+        validationSchema: roleCreationValidationSchema(),
         onSubmit: (request: RoleCreationRequest) => {
             setLoading(true);
             createRole(
@@ -145,110 +147,3 @@ function SubmitButton(): JSX.Element {
         </button>
     );
 }
-
-function SuccessDialog({
-    open,
-}: {
-    open: boolean,
-    onClose: () => void,
-}): JSX.Element {
-
-    const router = useRouter();
-
-    const redirect = (): void => router.push('/roles');
-
-    return (
-        <Dialog
-            open={open}
-            onClose={redirect}>
-            <DialogTitle style={{ fontWeight: '600' }}>
-                Usuario creado
-            </DialogTitle>
-            <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
-                Serás redirigido a la página "Usuarios" para poder editar los permisos del nuevo usuario
-            </DialogContent>
-            <DialogActions>
-                <button
-                    onClick={redirect}
-                    style={{ backgroundColor: 'black', border: 'none', padding: '12px 20px', color: 'white', borderRadius: '6px', cursor: 'pointer' }}>
-                    Aceptar
-                </button>
-            </DialogActions>
-        </Dialog>
-    );
-}
-
-function ErrorDialog({
-    open,
-    onClose,
-}: {
-    open: boolean,
-    onClose: () => void,
-}): JSX.Element {
-    return (
-        <Dialog
-            open={open}
-            onClose={onClose}>
-            <DialogTitle style={{ fontWeight: '600' }}>
-                Error inesperado
-            </DialogTitle>
-            <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
-                No se pudo crear el usuario. Intenta de nuevo.
-            </DialogContent>
-            <DialogActions>
-                <button
-                    onClick={onClose}
-                    style={{ backgroundColor: 'black', border: 'none', padding: '12px 20px', color: 'white', borderRadius: '6px', cursor: 'pointer' }}>
-                    Aceptar
-                </button>
-            </DialogActions>
-        </Dialog>
-    );
-}
-
-function ConflictDialog({
-    open,
-    onClose,
-}: {
-    open: boolean,
-    onClose: () => void,
-}): JSX.Element {
-    return (
-        <Dialog
-            open={open}
-            onClose={onClose}>
-            <DialogTitle style={{ fontWeight: '600' }}>
-                Error: Usuario ya existe
-            </DialogTitle>
-            <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
-                Ya existe un usuario con este nombre. Intenta con otro.
-            </DialogContent>
-            <DialogActions>
-                <button
-                    onClick={onClose}
-                    style={{ backgroundColor: 'black', border: 'none', padding: '12px 20px', color: 'white', borderRadius: '6px', cursor: 'pointer' }}>
-                    Aceptar
-                </button>
-            </DialogActions>
-        </Dialog>
-    );
-}
-
-function validationSchema() {
-    const usernameMaxLength: number = 20;
-    const passwordMinLength: number = 8;
-    const passwordMaxLength: number = 50;
-    return yup.object({
-        name: yup
-            .string()
-            .required('El nombre de usuario es requerido')
-            .max(usernameMaxLength, `El nombre de usuario debe tener máximo ${usernameMaxLength} caracteres`)
-            .matches(/^[a-zA-Z_]+$/, 'El nombre de usuario solo debe contener letras y guión bajo (_)'),
-        password: yup
-            .string()
-            .required('La contraseña es requerida')
-            .min(8, `La contraseña debe tener al menos ${passwordMinLength} caracteres`)
-            .max(50, `La contraseña debe tener máximo ${passwordMaxLength} caracteres`)
-            .matches(/^[a-zA-Z0-9]+$/, 'Sólo se admiten mayúsculas, minúsculas y números')
-    });
-} 
