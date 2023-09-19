@@ -9,10 +9,11 @@ export async function GET(request: Request) {
     const search: string | null = url.searchParams.get("search")
     const name: string | null = url.searchParams.get("name")
     console.log('name = ' + name);
-    if (search) {
+    console.log('search = ' + search);
+    if (search != null && search.length > 0) {
         return NextResponse.json(await rolesService.search(search));
     }
-    if (name) {
+    if (name != null && name.length > 0) {
         console.log('Inside name if statement');
         return NextResponse.json(await rolesService.findByName(name));
     }
