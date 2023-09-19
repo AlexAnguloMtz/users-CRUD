@@ -3,6 +3,7 @@ import { Accordion } from "@mui/material";
 import { Inputs } from "./Inputs";
 import { Top } from "./Top";
 import { TablePrivilege } from '@/app/common/dtos/responses/TablePrivilege';
+import { capitalize } from '@/app/common/utils/utils';
 
 export function TablePrivilegesInput({
     model,
@@ -23,7 +24,7 @@ export function TablePrivilegesInput({
         <Accordion
             className={styles.accordion}
             key={model.tableName}>
-            <Top headerText={model.tableName} />
+            <Top headerText={capitalize(model.tableName)} />
             <Inputs
                 model={model.privileges}
                 privilegeConsumer={handlePrivilegeClick} />
