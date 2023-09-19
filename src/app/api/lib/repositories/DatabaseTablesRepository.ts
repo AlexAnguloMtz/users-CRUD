@@ -14,6 +14,8 @@ export class DatabaseTablesRepository {
             result.rows.forEach((row) => models.push({ name: row.table_name }));
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -33,6 +35,8 @@ export class DatabaseTablesRepository {
             return result.rows[0].count;
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
