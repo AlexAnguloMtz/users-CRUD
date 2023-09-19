@@ -23,6 +23,8 @@ export class DatabaseRolesRepository {
             return result.rows[0].count;
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -46,6 +48,8 @@ export class DatabaseRolesRepository {
             return models;
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -67,6 +71,8 @@ export class DatabaseRolesRepository {
             return this.toModel(result.rows[0]);
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -90,6 +96,8 @@ export class DatabaseRolesRepository {
             await client.query(roleCreationQuery);
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -104,6 +112,8 @@ export class DatabaseRolesRepository {
             return model;
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -119,6 +129,8 @@ export class DatabaseRolesRepository {
             return result.rows[0].exists;
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
@@ -142,6 +154,8 @@ export class DatabaseRolesRepository {
             return models;
         } catch (e) {
             console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
         } finally {
             await client.end();
         }
