@@ -30,4 +30,8 @@ export class DatabaseRolesService {
         return await this.repository.update(name, model);
     }
 
+    async search(search: string): Promise<Array<DatabaseRole>> {
+        return await this.repository.search(search);
+    }
+
 }

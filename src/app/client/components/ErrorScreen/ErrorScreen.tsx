@@ -3,7 +3,7 @@ import errorImg from '../../../../../public/error.png';
 import Image from 'next/image';
 
 export function ErrorScreen({ error }: {
-    error: Error
+    error?: Error
 }): JSX.Element {
     return (
         <div className={styles.errorScreen}>

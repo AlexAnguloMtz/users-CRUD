@@ -5,8 +5,12 @@ import { HttpStatus } from "@/app/common/utils/HttpStatus";
 import { ConflictException } from "@/app/common/exceptions/ConflictException";
 
 export async function GET(request: Request) {
-    const url = new URL(request.url);
-    const name = url.searchParams.get("name")
+    const url: URL = new URL(request.url);
+    const search: string | null = url.searchParams.get("search")
+    const name: string | null = url.searchParams.get("name")
+    if (search) {
+        return NextResponse.json(await rolesService.search(search));
+    }
     if (name) {
         return NextResponse.json(await rolesService.findByName(name));
     }

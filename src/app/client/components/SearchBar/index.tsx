@@ -5,24 +5,19 @@ import icon from '../../../../../public/glass.svg';
 import Image from 'next/image';
 
 interface SearchBarProps {
-    onSearch: (query: string) => void;
+    onSearch: () => void;
+    onChange: (value: string) => void,
+    value: string,
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-    const [query, setQuery] = useState('');
-
-    const handleSearch = () => {
-        onSearch(query);
-    };
+const SearchBar: React.FC<SearchBarProps> = ({
+    onSearch,
+    onChange,
+    value
+}) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value);
-    };
-
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            handleSearch();
-        }
+        onChange(e.target.value);
     };
 
     return (
@@ -30,11 +25,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             <InputBase
                 className={styles.inputField}
                 placeholder="Buscar usuarios"
-                value={query}
+                value={value}
                 onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
             />
-            <IconButton className={styles.searchIcon} onClick={handleSearch}>
+            <IconButton
+                className={styles.searchIcon}
+                onClick={onSearch}>
                 <Icon />
             </IconButton>
         </Paper>
