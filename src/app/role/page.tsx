@@ -7,7 +7,7 @@ import { ErrorScreen } from "../client/components/ErrorScreen/ErrorScreen";
 import { fetchRole, updateRole } from "./lib/data-fetching";
 import { RolForm } from './RolForm';
 import { SuccessDialog } from "./SuccessDialog";
-import { PageTemplate } from "../client/components/PageTemplate/page";
+import { PageTemplate } from "../client/components/PageTemplate";
 
 type SearchParams = {
     name: string

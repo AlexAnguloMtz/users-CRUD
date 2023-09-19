@@ -7,7 +7,7 @@ import { findRoles } from './lib/data-fetching';
 import { LoadingIndicator } from '../client/components/LoadingIndicator/LoadingIndicator';
 import { ErrorScreen } from '../client/components/ErrorScreen/ErrorScreen';
 import { Cards } from './Cards';
-import { PageTemplate } from '../client/components/PageTemplate/page';
+import { PageTemplate } from '../client/components/PageTemplate';
 
 export default function Roles(): JSX.Element {
 
