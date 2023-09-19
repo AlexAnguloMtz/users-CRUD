@@ -12,7 +12,7 @@ import { createRole } from './lib/data-fetching';
 import { SuccessDialog } from './SuccessDialog';
 import { ErrorDialog } from './ErrorDialog';
 import { ConflictDialog } from './ConflictDialog';
-import { roleCreationValidationSchema } from './validations';
+import { roleCreationValidationSchema } from './lib/validations';
 
 const initialState = {
     name: '',
@@ -131,7 +131,9 @@ export default function CreateUser(): JSX.Element {
                                     isChecked={formik.values.canLogin}
                                     onChange={formik.handleChange}
                                     name='canLogin' />
+
                                 <SubmitButton />
+
                             </form>
                         </>
                 }

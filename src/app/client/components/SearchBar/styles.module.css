@@ -1,0 +1,22 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    max-width: 100%;
+}
+
+.icon {
+    margin-right: 8px;
+    width: 25px;
+    height: 25px;
+}
+
+.inputField {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding-left: 6px;
+}

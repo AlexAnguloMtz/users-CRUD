@@ -54,6 +54,7 @@ export class DatabaseRolesRepository {
     }
 
     async findByName(name: string): Promise<DatabaseRole> {
+
         const query: string = `
             SELECT rolname, rolsuper, rolcreaterole, rolcreatedb, rolcanlogin
             FROM pg_roles
