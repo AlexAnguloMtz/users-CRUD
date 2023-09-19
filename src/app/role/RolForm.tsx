@@ -33,6 +33,11 @@ export function RolForm({
                         </div>
                         <Rolname name={role.name} />
                     </div>
+                    {
+                        (role.isSuperUser)
+                            ? <SuperUserExplanation />
+                            : <></>
+                    }
                 </div>
                 <div className={styles.formBody}>
                     <BasicPrivileges
@@ -47,9 +52,14 @@ export function RolForm({
                         onPrivilegeClick={(privilege: TablePrivilege) => roleConsumer(togglePrivilege(role, privilege))} />
                 </div>
             </form>
-            <SubmitButton
-                onClick={onSubmit}
-                enabled={submitButtonEnabled} />
+            {
+                (role.isSuperUser)
+                    ? <></>
+                    : <SubmitButton
+                        onClick={onSubmit}
+                        enabled={submitButtonEnabled} />
+            }
+
         </>
     );
 }
@@ -85,5 +95,13 @@ function DeleteButton({ onClick, visible }: {
             onClick={onClick}>
             Eliminar
         </button>
+    );
+}
+
+function SuperUserExplanation(): JSX.Element {
+    return (
+        <p className={styles.superUserExplanation}>
+            Este es un Super Usuario. Por el momento no es posible guardar cambios a sus privilegios.
+        </p>
     );
 }
