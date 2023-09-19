@@ -157,4 +157,9 @@
     .submitButtonContainer {
         position: sticky;
     }
+
+    .deleteButton {
+        font-size: 18px;
+        padding: 0 40px;
+    }
 }

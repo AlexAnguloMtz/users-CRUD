@@ -87,7 +87,7 @@ export default function RolePage({ searchParams }: {
                     open={isSuccessDeleteDialogOpen}
                     onDisclose={() => router.push('/roles')} />
                 <Body
-                    isLoading={isLoadingInitialData || isUpdating}
+                    isLoading={isLoadingInitialData || isUpdating || isDeleting}
                     result={result}
                     roleConsumer={setResult}
                     onSubmit={() => setUpdating(true)}
