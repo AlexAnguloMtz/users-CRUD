@@ -31,31 +31,6 @@ export class DatabaseRolesRepository {
         throw new Error('Could not count rows');
     }
 
-    async findAll(): Promise<Array<DatabaseRole>> {
-
-        const query: string = `
-            SELECT rolname, rolsuper, rolcreaterole, rolcreatedb, rolcanlogin
-            FROM pg_roles
-            WHERE rolname NOT LIKE 'pg_%'
-        `;
-
-        const models: Array<DatabaseRole> = [];
-        const client: Client = this.createDatabaseClient();
-        try {
-            await client.connect();
-            const result: QueryResult = await client.query(query);
-            result.rows.forEach((row) => models.push(this.toModel(row)));
-            return models;
-        } catch (e) {
-            console.log(e);
-            console.log((e as Error).message);
-            console.log((e as Error).stack);
-        } finally {
-            await client.end();
-        }
-        throw new Error('Could not query roles.');
-    }
-
     async findByName(name: string): Promise<DatabaseRole> {
 
         const query: string = `
@@ -68,7 +43,8 @@ export class DatabaseRolesRepository {
         try {
             await client.connect();
             const result: QueryResult = await client.query(query);
-            return this.toModel(result.rows[0]);
+            const row = result.rows[0];
+            return this.toModel(row, await this.findTablePrivileges(row.rolname, client));
         } catch (e) {
             console.log(e);
             console.log((e as Error).message);
@@ -150,7 +126,10 @@ export class DatabaseRolesRepository {
         try {
             await client.connect();
             const result: QueryResult = await client.query(query);
-            result.rows.forEach((row) => models.push(this.toModel(row)));
+            for (const row of result.rows) {
+                const tablesPrivileges: Array<TablePrivileges> = await this.findTablePrivileges(row.rolname, client);
+                models.push(this.toModel(row, tablesPrivileges));
+            }
             return models;
         } catch (e) {
             console.log(e);
@@ -183,6 +162,61 @@ export class DatabaseRolesRepository {
         throw new Error(`Could not delete role with rolname = ${rolname}`);
     }
 
+    async findAll(): Promise<Array<DatabaseRole>> {
+        const query: string = `
+            SELECT rolname, rolsuper, rolcreaterole, rolcreatedb, rolcanlogin
+            FROM pg_roles
+            WHERE rolname NOT LIKE 'pg_%'
+        `;
+
+        const models: Array<DatabaseRole> = [];
+        const client: Client = this.createDatabaseClient();
+        try {
+            await client.connect();
+            const result: QueryResult = await client.query(query);
+            for (const row of result.rows) {
+                const tablesPrivileges: Array<TablePrivileges> = await this.findTablePrivileges(row.rolname, client);
+                models.push(this.toModel(row, tablesPrivileges));
+            }
+            return models;
+        } catch (e) {
+            console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
+        } finally {
+            await client.end();
+        }
+        throw new Error('Could not query roles.');
+    }
+
+    private async findTablePrivileges(rolname: string, client: Client): Promise<Array<TablePrivileges>> {
+
+        const query: string = `
+            SELECT table_name,
+            privilege_type
+            FROM information_schema.table_privileges
+            WHERE grantee = '${rolname}' AND table_schema = 'public';
+        `;
+
+        const tablesPrivileges: Array<TablePrivileges> = [];
+
+        const result: QueryResult = await client.query(query);
+
+        for (const row of result.rows) {
+            const existingTable = tablesPrivileges.find((t) => t.tableName === row.table_name);
+            if (existingTable) {
+                existingTable.privileges.push(row.privilege_type);
+            } else {
+                tablesPrivileges.push({
+                    tableName: row.table_name,
+                    privileges: [row.privilege_type],
+                });
+            }
+        }
+
+        return tablesPrivileges;
+    }
+
     async updateBasicPrivileges(name: string, model: DatabaseRole, client: Client): Promise<void> {
         await this.updateRoleCreationPrivilege(name, model, client);
         await this.updateDatabaseCreationPrivilege(name, model, client);
@@ -204,23 +238,14 @@ export class DatabaseRolesRepository {
         await client.query(query);
     }
 
-    private toModel(row: any): DatabaseRole {
+    private toModel(row: any, privileges: Array<TablePrivileges>): DatabaseRole {
         return {
             name: row.rolname,
             isSuperUser: row.rolsuper,
             canCreateRole: row.rolcreaterole,
             canCreateDatabase: row.rolcreatedb,
             canLogin: row.rolcanlogin,
-            tablesPrivileges: [
-                {
-                    tableName: "Ventas",
-                    privileges: ["SELECT", "TRUNCATE"]
-                },
-                {
-                    tableName: "Clientes",
-                    privileges: ["DELETE", "REFERENCES", "TRIGGER"]
-                },
-            ]
+            tablesPrivileges: privileges,
         };
     }
 
