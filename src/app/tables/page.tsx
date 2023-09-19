@@ -18,7 +18,7 @@ export default function Tables(): JSX.Element {
     useEffect(() => {
         if (result === undefined) {
             fetchTables()
-                .then((data: Array<DatabaseTable>) => setResult(() => data))
+                .then((data: Array<DatabaseTable>) => setResult(() => sorted(data)))
                 .catch((error: Error) => setResult(() => error));
         }
     }, [result]);
@@ -58,4 +58,8 @@ function Cards({ tables }: {
             </div>
         </>
     );
+}
+
+function sorted(data: Array<DatabaseTable>): Array<DatabaseTable> {
+    return data.sort((a, b) => a.name.localeCompare(b.name));
 }
