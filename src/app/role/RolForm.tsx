@@ -20,6 +20,25 @@ export function RolForm({
     onSubmit: () => void,
     onDelete: (role: DatabaseRole) => void
 }): JSX.Element {
+
+    function updateState(newState: DatabaseRole): void {
+        if (!role.isSuperUser) {
+            roleConsumer(newState);
+        }
+    }
+
+    function handleCanLogin(): void {
+        updateState({ ...role, canLogin: !role.canLogin });
+    }
+
+    function handleCanCreateDatabase(): void {
+        updateState({ ...role, canCreateDatabase: !role.canCreateDatabase });
+    }
+
+    function handleCanCreateRole(): void {
+        updateState({ ...role, canCreateRole: !role.canCreateRole });
+    }
+
     return (
         <>
             <form className={styles.page}>
@@ -44,12 +63,12 @@ export function RolForm({
                         canCreateRoles={role.canCreateRole}
                         canCreateDatabases={role.canCreateDatabase}
                         canLogin={role.canLogin}
-                        onCanCreateDatabase={() => roleConsumer({ ...role, canCreateDatabase: !role.canCreateDatabase })}
-                        onCanCreateRoles={() => roleConsumer({ ...role, canCreateRole: !role.canCreateRole })}
-                        onCanLogin={() => roleConsumer({ ...role, canLogin: !role.canLogin })} />
+                        onCanCreateDatabase={handleCanCreateDatabase}
+                        onCanCreateRoles={handleCanCreateRole}
+                        onCanLogin={handleCanLogin} />
                     <TablesPrivileges
                         model={role.tablesPrivileges}
-                        onPrivilegeClick={(privilege: TablePrivilege) => roleConsumer(togglePrivilege(role, privilege))} />
+                        onPrivilegeClick={(privilege: TablePrivilege) => updateState(togglePrivilege(role, privilege))} />
                 </div>
             </form>
             {
