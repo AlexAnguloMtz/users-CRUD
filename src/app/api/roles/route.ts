@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
     const url = new URL(request.url);
-    const name = url.searchParams.get("name")
+    const name = url.searchParams.get("rolname")
     if (name) {
         return NextResponse.json(await rolesService.update(name, await request.json()));
     }
