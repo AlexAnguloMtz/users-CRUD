@@ -189,33 +189,40 @@ export class DatabaseRolesRepository {
         throw new Error('Could not query roles.');
     }
 
-    private async findTablePrivileges(rolname: string, client: Client): Promise<Array<TablePrivileges>> {
-
+    async findTablePrivileges(rolname: string, client: Client): Promise<Array<TablePrivileges>> {
         const query: string = `
-            SELECT table_name,
-            privilege_type
-            FROM information_schema.table_privileges
-            WHERE grantee = '${rolname}' AND table_schema = 'public';
+          SELECT t.table_name, ARRAY_AGG(COALESCE(p.privilege_type, 'No privileges')) AS privileges
+          FROM information_schema.tables AS t
+          LEFT JOIN information_schema.table_privileges AS p
+              ON t.table_name = p.table_name
+              AND p.grantee = '${rolname}'
+              AND p.table_schema = 'public'
+          WHERE t.table_schema = 'public'
+          GROUP BY t.table_name
         `;
 
         const tablesPrivileges: Array<TablePrivileges> = [];
 
-        const result: QueryResult = await client.query(query);
+        try {
+            const result: QueryResult = await client.query(query);
 
-        for (const row of result.rows) {
-            const existingTable = tablesPrivileges.find((t) => t.tableName === row.table_name);
-            if (existingTable) {
-                existingTable.privileges.push(row.privilege_type);
-            } else {
+            for (const row of result.rows) {
+                const tableName = row.table_name;
+                const privileges = row.privileges;
+
                 tablesPrivileges.push({
-                    tableName: row.table_name,
-                    privileges: [row.privilege_type],
+                    tableName,
+                    privileges: (privileges.includes("No privileges") ? [] : privileges),
                 });
             }
-        }
 
-        return tablesPrivileges;
+            return tablesPrivileges;
+        } catch (error) {
+            console.error(error);
+            throw new Error('Failed to fetch table privileges.');
+        }
     }
+
 
     async updateBasicPrivileges(name: string, model: DatabaseRole, client: Client): Promise<void> {
         await this.updateRoleCreationPrivilege(name, model, client);
