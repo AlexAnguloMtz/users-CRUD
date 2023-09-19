@@ -85,6 +85,7 @@ export class DatabaseRolesRepository {
         try {
             await client.connect();
             await this.updateBasicPrivileges(name, model, client);
+            await this.updateTablesPrivileges(name, model.tablesPrivileges, client);
             return model;
         } catch (e) {
             console.log(e);
@@ -190,6 +191,7 @@ export class DatabaseRolesRepository {
     }
 
     async findTablePrivileges(rolname: string, client: Client): Promise<Array<TablePrivileges>> {
+
         const query: string = `
           SELECT t.table_name, ARRAY_AGG(COALESCE(p.privilege_type, 'No privileges')) AS privileges
           FROM information_schema.tables AS t
@@ -243,6 +245,39 @@ export class DatabaseRolesRepository {
     async updateLoginPrivilege(name: string, model: DatabaseRole, client: Client) {
         const query: string = `ALTER ROLE ${name} ${model.canLogin ? 'LOGIN' : 'NOLOGIN'}`
         await client.query(query);
+    }
+
+    async updateTablesPrivileges(rolname: string, tablePrivileges: Array<TablePrivileges>, client: Client) {
+        try {
+
+            for (const { tableName, privileges } of tablePrivileges) {
+                // Revoke all privileges from the role on the table
+                const revokeQuery = `
+              REVOKE ALL PRIVILEGES ON TABLE "${tableName}" FROM "${rolname}";
+            `;
+                await client.query(revokeQuery);
+
+                // Grant the specified privileges to the role on the table
+                if (privileges.length > 0) {
+                    const grantQuery = `
+                GRANT ${privileges.join(', ')} ON TABLE "${tableName}" TO "${rolname}";
+              `;
+                    await client.query(grantQuery);
+                }
+            }
+
+            // Commit the transaction
+            await client.query('COMMIT');
+        } catch (error) {
+            // Handle any potential errors
+            console.error(error);
+            // Rollback the transaction in case of an error
+            await client.query('ROLLBACK');
+            throw new Error(`Failed to update privileges for role ${rolname}.`);
+        } finally {
+            // Close the database connection
+            await client.end();
+        }
     }
 
     private toModel(row: any, privileges: Array<TablePrivileges>): DatabaseRole {
