@@ -10,10 +10,10 @@ export async function GET(request: Request) {
     const name: string | null = url.searchParams.get("name")
     console.log('name = ' + name);
     console.log('search = ' + search);
-    if (search != null && search.length > 0) {
+    if (search !== null && search.length > 0) {
         return NextResponse.json(await rolesService.search(search));
     }
-    if (name != null && name.length > 0) {
+    if (name !== null && name.length > 0) {
         console.log('Inside name if statement');
         return NextResponse.json(await rolesService.findByName(name));
     }
