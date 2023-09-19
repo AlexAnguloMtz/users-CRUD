@@ -7,15 +7,15 @@ import { ConflictException } from "@/app/common/exceptions/ConflictException";
 export async function GET(request: Request) {
     const url: URL = new URL(request.url);
     const search: string | null = url.searchParams.get("search")
-    const name: string | null = url.searchParams.get("name")
-    console.log('name = ' + name);
+    const rolname: string | null = url.searchParams.get("rolname")
+    console.log('rolname = ' + rolname);
     console.log('search = ' + search);
     if (search !== null && search.length > 0) {
         return NextResponse.json(await rolesService.search(search));
     }
-    if (name !== null && name.length > 0) {
-        console.log('Inside name if statement');
-        return NextResponse.json(await rolesService.findByName(name));
+    if (rolname !== null && rolname.length > 0) {
+        console.log('Inside rolname if statement');
+        return NextResponse.json(await rolesService.findByName(rolname));
     }
     return NextResponse.json(await rolesService.findAll());
 }

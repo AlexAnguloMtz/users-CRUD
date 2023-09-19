@@ -10,7 +10,7 @@ import { SuccessDialog } from "./SuccessDialog";
 import { PageTemplate } from "../client/components/PageTemplate";
 
 type SearchParams = {
-    name: string
+    rolname: string
 }
 
 type Result = Error | DatabaseRole;
@@ -29,7 +29,7 @@ export default function RolePage({ searchParams }: {
 
     useEffect(() => {
         if (isLoadingInitialData) {
-            fetchRole(searchParams.name)
+            fetchRole(searchParams.rolname)
                 .then(handleInitialFetchResult)
                 .catch(handleInitialFetchResult)
         }
