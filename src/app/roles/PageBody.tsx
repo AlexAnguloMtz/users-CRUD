@@ -15,6 +15,7 @@ export function PageBody({
             {
                 data.map((model: DatabaseRole) =>
                     <DatabaseRoleCard
+                        key={model.name}
                         model={model} />
                 )
             }

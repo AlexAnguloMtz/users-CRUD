@@ -7,7 +7,7 @@ export function CheckboxInput({
     isChecked,
     labelText,
     onClick,
-    onChange
+    onChange,
 }: {
     isChecked: boolean,
     labelText: string,
@@ -16,7 +16,8 @@ export function CheckboxInput({
     onChange?: (e: ChangeEvent<any>) => void,
 }): JSX.Element {
     return (
-        <div className={styles.checkboxWrapper}>
+        <div className={styles.checkboxWrapper}
+        >
             <label className={styles.checkboxLabel}>{labelText}</label>
             <Checkbox
                 checked={isChecked}

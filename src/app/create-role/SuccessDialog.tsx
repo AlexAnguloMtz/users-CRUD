@@ -25,7 +25,7 @@ export function SuccessDialog({
                 src={check}
                 alt={'palomita de éxito'} />
             <DialogContent style={{ fontWeight: '500', lineHeight: '1.6' }}>
-                Serás redirigido a la página "Usuarios" para poder editar los permisos del nuevo usuario
+                Serás redirigido a la página &ldquo;Usuarios&rdquo; para poder editar los permisos del nuevo usuario
             </DialogContent>
             <DialogActions>
                 <button

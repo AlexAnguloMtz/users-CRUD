@@ -13,8 +13,9 @@ export function Inputs({
         <AccordionDetails>
             <div className={styles.inputs}>
                 {
-                    tablePrivileges().map((privilege: string) =>
+                    tablePrivileges().map((privilege: string, index: number) =>
                         <CheckboxInput
+                            key={index}
                             isChecked={model.includes(privilege)}
                             labelText={privilege}
                             onClick={() => privilegeConsumer(privilege)} />

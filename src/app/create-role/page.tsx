@@ -83,7 +83,7 @@ export default function CreateUser(): JSX.Element {
                                 onSubmit={formik.handleSubmit}>
                                 <p className={styles.instructions}>
                                     Después de crear un usuario, podrás gestionar sus permisos
-                                    sobre las tablas existentes, en la página "Usuarios"
+                                    sobre las tablas existentes, en la página &ldquo;Usuarios&rdquo;
                                 </p>
                                 <TextField
                                     fullWidth
