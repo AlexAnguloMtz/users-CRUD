@@ -16,6 +16,7 @@ export function DatabaseRoleCard({
 
     return (
         <article
+            key={model.name}
             className={styles.card}
             onClick={() => router.push(`/role?name=${model.name}`)}>
             {model.isSuperUser ? <SuperUserTag /> : <></>}

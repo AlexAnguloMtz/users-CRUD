@@ -20,7 +20,9 @@ export function TablePrivilegesInput({
     }
 
     return (
-        <Accordion className={styles.accordion}>
+        <Accordion
+            className={styles.accordion}
+            key={model.tableName}>
             <Top headerText={model.tableName} />
             <Inputs
                 model={model.privileges}

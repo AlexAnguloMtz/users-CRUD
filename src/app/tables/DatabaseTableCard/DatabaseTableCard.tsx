@@ -8,7 +8,9 @@ export function DatabaseTableCard({ table }: {
     table: DatabaseTable
 }): JSX.Element {
     return (
-        <article className={styles.card}>
+        <article
+            className={styles.card}
+            key={table.name}>
             <div className={styles.topWrapper}>
                 <Image
                     className={styles.img}
