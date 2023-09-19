@@ -120,7 +120,7 @@ function DeleteButton({ onClick, visible }: {
 function SuperUserExplanation(): JSX.Element {
     return (
         <p className={styles.superUserExplanation}>
-            Este es un Super Usuario. Por el momento no es posible guardar cambios a sus privilegios.
+            Este es un Super Usuario. Por el momento no es posible editar sus privilegios.
         </p>
     );
 }
