@@ -251,13 +251,11 @@ export class DatabaseRolesRepository {
         try {
 
             for (const { tableName, privileges } of tablePrivileges) {
-                // Revoke all privileges from the role on the table
                 const revokeQuery = `
               REVOKE ALL PRIVILEGES ON TABLE "${tableName}" FROM "${rolname}";
             `;
                 await client.query(revokeQuery);
 
-                // Grant the specified privileges to the role on the table
                 if (privileges.length > 0) {
                     const grantQuery = `
                 GRANT ${privileges.join(', ')} ON TABLE "${tableName}" TO "${rolname}";
@@ -266,16 +264,12 @@ export class DatabaseRolesRepository {
                 }
             }
 
-            // Commit the transaction
             await client.query('COMMIT');
         } catch (error) {
-            // Handle any potential errors
             console.error(error);
-            // Rollback the transaction in case of an error
             await client.query('ROLLBACK');
             throw new Error(`Failed to update privileges for role ${rolname}.`);
         } finally {
-            // Close the database connection
             await client.end();
         }
     }
