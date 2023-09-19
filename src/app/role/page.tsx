@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { DatabaseRole } from "../common/dtos/responses/DatabaseRole";
 import { LoadingIndicator } from "../client/components/LoadingIndicator/LoadingIndicator";
 import { ErrorScreen } from "../client/components/ErrorScreen/ErrorScreen";
-import { fetchRole, updateRole } from "./lib/data-fetching";
+import { deleteRole, fetchRole, updateRole } from "./lib/data-fetching";
 import { RolForm } from './RolForm';
-import { SuccessDialog } from "./SuccessDialog";
+import { SuccessUpdateDialog } from "./SuccessUpdateDialog";
 import { PageTemplate } from "../client/components/PageTemplate";
+import { SuccessDeleteDialog } from "./SuccessDeleteDialog";
+import { useRouter } from "next/navigation";
 
 type SearchParams = {
     rolname: string
@@ -27,7 +29,13 @@ export default function RolePage({ searchParams }: {
 
     const [isUpdating, setUpdating] = useState<boolean>(false);
 
-    const [isSuccessDialogOpen, setSuccessDialogOpen] = useState<boolean>(false);
+    const [isDeleting, setDeleting] = useState<boolean>(false);
+
+    const [isSuccessUpdateDialogOpen, setSuccessUpdateDialogOpen] = useState<boolean>(false);
+
+    const [isSuccessDeleteDialogOpen, setSuccessDeleteDialogOpen] = useState<boolean>(false);
+
+    const router = useRouter();
 
     useEffect(() => {
         if (isLoadingInitialData) {
@@ -45,6 +53,14 @@ export default function RolePage({ searchParams }: {
         }
     }, [isUpdating]);
 
+    useEffect(() => {
+        if (isDeleting) {
+            deleteRole(result as DatabaseRole)
+                .then(handleDeleteResult)
+                .catch(handleDeleteResult)
+        }
+    }, [isDeleting]);
+
     function handleInitialFetchResult(result: Result): void {
         setLoadingInitialData(false);
         setResult(result);
@@ -53,20 +69,29 @@ export default function RolePage({ searchParams }: {
     function handleUpdatingResult(result: Result): void {
         setUpdating(false);
         setResult(result);
-        setSuccessDialogOpen(true);
+        setSuccessUpdateDialogOpen(true);
+    }
+
+    function handleDeleteResult(result: Result): void {
+        setDeleting(false);
+        setSuccessDeleteDialogOpen(true);
     }
 
     return (
         <PageTemplate>
             <>
-                <SuccessDialog
-                    open={isSuccessDialogOpen}
-                    onDisclose={() => setSuccessDialogOpen(false)} />
+                <SuccessUpdateDialog
+                    open={isSuccessUpdateDialogOpen}
+                    onDisclose={() => setSuccessUpdateDialogOpen(false)} />
+                <SuccessDeleteDialog
+                    open={isSuccessDeleteDialogOpen}
+                    onDisclose={() => router.push('/roles')} />
                 <Body
                     isLoading={isLoadingInitialData || isUpdating}
                     result={result}
                     roleConsumer={setResult}
-                    onSubmit={() => setUpdating(true)} />
+                    onSubmit={() => setUpdating(true)}
+                    onDelete={(role: DatabaseRole) => setDeleting(true)} />
             </>
         </PageTemplate>
     );
@@ -77,11 +102,13 @@ function Body({
     result,
     roleConsumer,
     onSubmit,
+    onDelete,
 }: {
     isLoading: boolean,
     result: Error | DatabaseRole,
     roleConsumer: (role: DatabaseRole) => void,
     onSubmit: () => void,
+    onDelete: (role: DatabaseRole) => void
 }): JSX.Element {
     if (isLoading) {
         return <LoadingIndicator />
@@ -94,6 +121,7 @@ function Body({
             role={result}
             roleConsumer={roleConsumer}
             submitButtonEnabled={true}
-            onSubmit={onSubmit} />
+            onSubmit={onSubmit}
+            onDelete={onDelete} />
     );
 }

@@ -162,6 +162,27 @@ export class DatabaseRolesRepository {
         throw new Error('Could not query roles');
     }
 
+    async deleteByName(rolname: string): Promise<void> {
+
+        const query: string = `
+            DROP ROLE ${rolname}
+        `;
+
+        const client: Client = this.createDatabaseClient();
+        try {
+            await client.connect();
+            await client.query(query);
+            return;
+        } catch (e) {
+            console.log(e);
+            console.log((e as Error).message);
+            console.log((e as Error).stack);
+        } finally {
+            await client.end();
+        }
+        throw new Error(`Could not delete role with rolname = ${rolname}`);
+    }
+
     async updateBasicPrivileges(name: string, model: DatabaseRole, client: Client): Promise<void> {
         await this.updateRoleCreationPrivilege(name, model, client);
         await this.updateDatabaseCreationPrivilege(name, model, client);

@@ -132,6 +132,21 @@
     font-weight: 500;
 }
 
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteButton {
+    background: linear-gradient(45deg, rgba(231, 27, 27, 0.973), rgba(163, 4, 4, 0.568));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0 12px;
+    height: 40px;
+    cursor: pointer;
+}
+
 @media screen and (min-width: 750px) {
     .top {
         padding: 16px 32px 8px 32px;

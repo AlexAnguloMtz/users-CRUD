@@ -12,18 +12,27 @@ export function RolForm({
     roleConsumer,
     submitButtonEnabled,
     onSubmit,
+    onDelete,
 }: {
     role: DatabaseRole,
     submitButtonEnabled: boolean,
     roleConsumer: (role: DatabaseRole) => void,
     onSubmit: () => void,
+    onDelete: (role: DatabaseRole) => void
 }): JSX.Element {
     return (
         <>
             <form className={styles.page}>
                 <div className={styles.top}>
-                    <h1 className={styles.title}>Usuario</h1>
-                    <Rolname name={role.name} />
+                    <div>
+                        <div className={styles.titleContainer}>
+                            <h1 className={styles.title}>Usuario</h1>
+                            <DeleteButton
+                                onClick={() => onDelete(role)}
+                                visible={!role.isSuperUser} />
+                        </div>
+                        <Rolname name={role.name} />
+                    </div>
                 </div>
                 <div className={styles.formBody}>
                     <BasicPrivileges
@@ -62,3 +71,19 @@ function SubmitButton({ onClick, enabled }: {
     );
 }
 
+function DeleteButton({ onClick, visible }: {
+    onClick: () => void,
+    visible: boolean,
+}): JSX.Element {
+
+    if (!visible) return <></>;
+
+    return (
+        <button
+            className={styles.deleteButton}
+            type='button'
+            onClick={onClick}>
+            Eliminar
+        </button>
+    );
+}

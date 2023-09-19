@@ -38,3 +38,13 @@ export async function PUT(request: Request) {
     }
     throw new Error('Invalid query parameters');
 }
+
+export async function DELETE(request: Request) {
+    const url = new URL(request.url);
+    const rolname = url.searchParams.get("rolname")
+    if (rolname) {
+        await rolesService.delete(rolname);
+        return NextResponse.json({}, { status: HttpStatus.NO_CONTENT });
+    }
+    throw new Error('Invalid query parameters');
+}

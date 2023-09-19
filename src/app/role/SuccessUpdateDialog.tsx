@@ -3,7 +3,7 @@ import check from '../../../public/check.png';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 
-export function SuccessDialog({
+export function SuccessUpdateDialog({
     open,
     onDisclose,
 }: {

@@ -34,4 +34,8 @@ export class DatabaseRolesService {
         return await this.repository.search(search);
     }
 
+    async delete(rolname: string): Promise<void> {
+        await this.repository.deleteByName(rolname);
+    }
+
 }
