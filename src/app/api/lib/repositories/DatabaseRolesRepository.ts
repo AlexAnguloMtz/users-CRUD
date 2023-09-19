@@ -130,7 +130,7 @@ export class DatabaseRolesRepository {
         const query: string = `
             SELECT rolname, rolsuper, rolcreaterole, rolcreatedb, rolcanlogin
             FROM pg_roles
-            WHERE rolname LIKE '%${search}%' AND rolname NOT LIKE 'pg_%'
+            WHERE rolname ILIKE '%${search}%' AND rolname NOT LIKE 'pg_%'
         `;
 
         const models: Array<DatabaseRole> = [];
