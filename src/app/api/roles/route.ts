@@ -8,10 +8,12 @@ export async function GET(request: Request) {
     const url: URL = new URL(request.url);
     const search: string | null = url.searchParams.get("search")
     const name: string | null = url.searchParams.get("name")
+    console.log('name = ' + name);
     if (search) {
         return NextResponse.json(await rolesService.search(search));
     }
     if (name) {
+        console.log('Inside name if statement');
         return NextResponse.json(await rolesService.findByName(name));
     }
     return NextResponse.json(await rolesService.findAll());
