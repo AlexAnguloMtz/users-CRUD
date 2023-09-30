@@ -1,5 +1,5 @@
 # Aplicación web desplegada
-En el siguiente enlace se puede abrir la aplicación web ejecutándose: https://users-crud-cfrafppxr-alexangulomtz.vercel.app/
+En el siguiente enlace se puede abrir la aplicación web ejecutándose: https://users-crud-fsdd8edj1-alexangulomtz.vercel.app/
 
 # Aplicación Gestor de Usuarios y Privilegios
 Esta es una aplicación web a manera de CRUD para gestionar los usuarios y privilegios de un gestor de base de datos.
